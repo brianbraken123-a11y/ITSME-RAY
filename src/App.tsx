@@ -11,6 +11,7 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { StoryReaderModal } from './components/StoryReaderModal';
 import { OpinionReaderModal } from './components/OpinionReaderModal';
+import { CvModal } from './components/CvModal';
 import { Story, Opinion } from './types';
 import { storiesData } from './data/stories';
 import { opinionsData } from './data/writings';
@@ -19,6 +20,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState('hero');
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
   const [selectedOpinion, setSelectedOpinion] = useState<Opinion | null>(null);
+  const [isCvOpen, setIsCvOpen] = useState(false);
 
   // Check URL hash / search params on mount to allow direct deep-linking
   useEffect(() => {
@@ -79,13 +81,18 @@ export default function App() {
     <ThemeProvider>
       <div className="min-h-screen bg-[#faf9f6] text-[#1c1917] dark:bg-[#0c0a09] dark:text-[#f5f5f4] transition-colors duration-300 font-sans-ui selection:bg-amber-500/20 selection:text-amber-900 dark:selection:bg-amber-500/30 dark:selection:text-amber-200">
         {/* Navigation Bar */}
-        <Navbar activeSection={activeSection} onNavigate={handleNavigate} />
+        <Navbar
+          activeSection={activeSection}
+          onNavigate={handleNavigate}
+          onOpenCv={() => setIsCvOpen(true)}
+        />
 
         <main>
           {/* 1. Hero Section */}
           <Hero
             onExploreStories={() => handleNavigate('stories')}
             onSeeWork={() => handleNavigate('about')}
+            onOpenCv={() => setIsCvOpen(true)}
           />
 
           {/* 2. Stories Section (Editorial Archive) */}
@@ -98,7 +105,10 @@ export default function App() {
           <ExperienceSection />
 
           {/* 5. Storytelling About Section */}
-          <AboutSection onExploreStories={() => handleNavigate('stories')} />
+          <AboutSection
+            onExploreStories={() => handleNavigate('stories')}
+            onOpenCv={() => setIsCvOpen(true)}
+          />
 
           {/* 6. Socials Hub */}
           <SocialsSection />
@@ -108,7 +118,16 @@ export default function App() {
         </main>
 
         {/* Footer */}
-        <Footer onNavigate={handleNavigate} />
+        <Footer
+          onNavigate={handleNavigate}
+          onOpenCv={() => setIsCvOpen(true)}
+        />
+
+        {/* CV Modal with Preview, Print & Direct Download */}
+        <CvModal
+          isOpen={isCvOpen}
+          onClose={() => setIsCvOpen(false)}
+        />
 
         {/* Modals for Immersive Article Reading */}
         <StoryReaderModal

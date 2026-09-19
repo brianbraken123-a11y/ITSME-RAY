@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { profileData } from '../data/profile';
-import { ArrowRight, BookOpen, Layers, RefreshCw, MessageCircle, Instagram, Mail, Sparkles, User } from 'lucide-react';
+import { ArrowRight, BookOpen, Layers, RefreshCw, MessageCircle, Instagram, Mail, Sparkles, User, Download, FileText } from 'lucide-react';
 
 interface HeroProps {
   onExploreStories: () => void;
   onSeeWork: () => void;
+  onOpenCv?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onExploreStories, onSeeWork }) => {
+export const Hero: React.FC<HeroProps> = ({ onExploreStories, onSeeWork, onOpenCv }) => {
   const [headlineIndex, setHeadlineIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
 
@@ -89,6 +90,17 @@ export const Hero: React.FC<HeroProps> = ({ onExploreStories, onSeeWork }) => {
               <User className="w-4 h-4 text-purple-600 dark:text-purple-400" />
               <span>Tentang Ray</span>
             </button>
+
+            {onOpenCv && (
+              <button
+                id="hero-cta-cv"
+                onClick={onOpenCv}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-purple-100 hover:bg-purple-200 dark:bg-purple-950/70 dark:hover:bg-purple-900/80 text-purple-700 dark:text-purple-300 border border-purple-300/70 dark:border-purple-800/70 text-sm font-semibold transition-all cursor-pointer shadow-xs"
+              >
+                <Download className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <span>Download CV</span>
+              </button>
+            )}
           </div>
 
           {/* Quick Contact Links (ONLY WhatsApp, Instagram, Email) */}

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Menu, X, ArrowUpRight, Compass } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowUpRight, Compass, FileText, Download } from 'lucide-react';
 import { profileData } from '../data/profile';
 
 interface NavbarProps {
   activeSection: string;
   onNavigate: (sectionId: string) => void;
+  onOpenCv?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpenCv }) => {
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -86,6 +87,19 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
 
         {/* Action controls */}
         <div className="flex items-center gap-2">
+          {/* Download CV CTA */}
+          {onOpenCv && (
+            <button
+              id="nav-cv-cta"
+              onClick={onOpenCv}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-purple-100 hover:bg-purple-200 dark:bg-purple-950/70 dark:hover:bg-purple-900/80 text-purple-700 dark:text-purple-300 border border-purple-300/60 dark:border-purple-800/60 transition-all shadow-xs cursor-pointer"
+              title="Lihat & Download CV (PDF)"
+            >
+              <Download className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+              <span>CV</span>
+            </button>
+          )}
+
           {/* Theme Toggle */}
           <button
             id="theme-toggle-btn"
@@ -142,11 +156,24 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate }) => 
             ))}
           </div>
 
-          <div className="pt-4 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between">
+          <div className="pt-4 border-t border-stone-200 dark:border-stone-800 flex flex-col gap-2">
+            {onOpenCv && (
+              <button
+                id="mobile-cv-cta"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenCv();
+                }}
+                className="w-full py-2.5 flex items-center justify-center gap-2 text-xs font-semibold rounded-lg bg-purple-100 dark:bg-purple-950/70 text-purple-700 dark:text-purple-300 border border-purple-300/60 dark:border-purple-800/60 cursor-pointer"
+              >
+                <Download className="w-4 h-4" />
+                <span>Lihat & Download CV (PDF)</span>
+              </button>
+            )}
             <button
               id="mobile-contact-cta"
               onClick={() => handleLinkClick('contact')}
-              className="w-full py-2.5 text-center text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white"
+              className="w-full py-2.5 text-center text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white cursor-pointer"
             >
               Ada ide yang mau diobrolin?
             </button>

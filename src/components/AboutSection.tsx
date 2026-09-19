@@ -1,12 +1,13 @@
 import React from 'react';
 import { profileData } from '../data/profile';
-import { Feather, MessageSquare, TrendingUp, Box, ArrowRight, Sparkles, MessageCircle, Instagram, Mail } from 'lucide-react';
+import { Feather, MessageSquare, TrendingUp, Box, ArrowRight, Sparkles, MessageCircle, Instagram, Mail, FileText, Download } from 'lucide-react';
 
 interface AboutSectionProps {
   onExploreStories?: () => void;
+  onOpenCv?: () => void;
 }
 
-export const AboutSection: React.FC<AboutSectionProps> = ({ onExploreStories }) => {
+export const AboutSection: React.FC<AboutSectionProps> = ({ onExploreStories, onOpenCv }) => {
   const pillars = [
     {
       icon: Feather,
@@ -90,6 +91,16 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onExploreStories }) 
                 >
                   <span>Jelajahi Cerita</span>
                   <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              )}
+
+              {onOpenCv && (
+                <button
+                  onClick={onOpenCv}
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 text-xs font-mono-tag border border-purple-500/40 transition-all cursor-pointer shadow-xs"
+                >
+                  <Download className="w-3.5 h-3.5 text-purple-400" />
+                  <span>Download CV</span>
                 </button>
               )}
 

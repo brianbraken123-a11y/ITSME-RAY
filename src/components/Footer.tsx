@@ -1,12 +1,13 @@
 import React from 'react';
 import { profileData } from '../data/profile';
-import { ArrowUp, Heart, Terminal, Compass } from 'lucide-react';
+import { ArrowUp, Heart, Terminal, Compass, Download, FileText } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (sectionId: string) => void;
+  onOpenCv?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenCv }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -72,6 +73,18 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <button onClick={() => onNavigate('about')} className="hover:text-purple-600 dark:hover:text-purple-400 cursor-pointer">
               Tentang Ray
             </button>
+            {onOpenCv && (
+              <>
+                <span>•</span>
+                <button
+                  onClick={onOpenCv}
+                  className="inline-flex items-center gap-1 text-purple-600 dark:text-purple-400 hover:underline font-semibold cursor-pointer"
+                >
+                  <Download className="w-3 h-3" />
+                  <span>Download CV</span>
+                </button>
+              </>
+            )}
           </div>
 
           <button

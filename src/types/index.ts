@@ -121,6 +121,7 @@ export interface ProfileData {
   whatsapp?: string;
   instagram: string;
   photoUrl?: string;
+  cvUrl?: string;
   linkedin?: string;
   github?: string;
   youtube?: string;

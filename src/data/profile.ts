@@ -25,6 +25,8 @@ export const profileData: ProfileData = {
   email: 'brianbraken123@gmail.com',
   whatsapp: 'https://wa.me/855886772979',
   instagram: 'https://www.instagram.com/brainbreak19?stkn=MXFqam1tdTg3bXdxZA==',
-  photoUrl: '/ray-photo.svg'
+  linkedin: 'https://www.linkedin.com/in/ryan-taylor',
+  photoUrl: '/ray-photo.svg',
+  cvUrl: '/Ryan-Hidayat-Taylor-CV.pdf'
 };
 
