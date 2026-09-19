@@ -1,0 +1,451 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1066" width="100%" height="100%">
+  <defs>
+    <!-- Gallery Lighting & Gradients -->
+    <linearGradient id="wallBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="60%" stop-color="#f1f5f9" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+
+    <linearGradient id="ceilingLight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="50%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+
+    <!-- Glossy Floor Gradient with Horizon -->
+    <linearGradient id="glossyFloor" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f1f5f9" />
+      <stop offset="25%" stop-color="#ffffff" />
+      <stop offset="70%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+
+    <!-- Floor Reflection Fade -->
+    <linearGradient id="reflectionFade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.35" />
+      <stop offset="40%" stop-color="#000000" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Glass Panel Shading -->
+    <linearGradient id="glassSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75" />
+      <stop offset="40%" stop-color="#f8fafc" stop-opacity="0.35" />
+      <stop offset="80%" stop-color="#e2e8f0" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.6" />
+    </linearGradient>
+
+    <!-- Bomber Jacket Textures & Folds -->
+    <linearGradient id="bomberJacket" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#27272a" />
+      <stop offset="35%" stop-color="#18181b" />
+      <stop offset="70%" stop-color="#09090b" />
+      <stop offset="100%" stop-color="#18181b" />
+    </linearGradient>
+
+    <linearGradient id="zipperGleam" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e2e8f0" />
+      <stop offset="50%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+
+    <!-- Trousers Gradient -->
+    <linearGradient id="trousersGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917" />
+      <stop offset="60%" stop-color="#0c0a09" />
+      <stop offset="100%" stop-color="#18181b" />
+    </linearGradient>
+
+    <!-- Skin Tones -->
+    <linearGradient id="skinShade" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#fed7aa" />
+      <stop offset="40%" stop-color="#fba068" />
+      <stop offset="85%" stop-color="#c2632b" />
+      <stop offset="100%" stop-color="#8c3a10" />
+    </linearGradient>
+
+    <!-- Sunglasses Tint & Reflection -->
+    <linearGradient id="glassesTint" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="50%" stop-color="#09090b" />
+      <stop offset="100%" stop-color="#000000" />
+    </linearGradient>
+
+    <linearGradient id="glassStreak" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6" />
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.1" />
+      <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Dropshadow filter for glass and blocks -->
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08" />
+    </filter>
+
+    <filter id="blockShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="4" dy="6" stdDeviation="3" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- ================= BACKGROUND GALLERY ROOM ================= -->
+  <!-- Ceiling -->
+  <rect x="0" y="0" width="800" height="180" fill="url(#ceilingLight)" />
+  <rect x="220" y="0" width="360" height="60" fill="#ffffff" />
+  <line x1="220" y1="0" x2="220" y2="60" stroke="#cbd5e1" stroke-width="1.5" />
+  <line x1="580" y1="0" x2="580" y2="60" stroke="#cbd5e1" stroke-width="1.5" />
+  <line x1="0" y1="60" x2="800" y2="60" stroke="#e2e8f0" stroke-width="1.5" />
+
+  <!-- Back Wall & Side Walls -->
+  <polygon points="0,60 800,60 800,680 0,680" fill="url(#wallBg)" />
+  <!-- Side wall perspective guides -->
+  <polygon points="0,60 160,140 160,680 0,680" fill="#f1f5f9" opacity="0.6" />
+  <polygon points="800,60 640,140 640,680 800,680" fill="#f1f5f9" opacity="0.6" />
+
+  <!-- Glossy Reflective Floor -->
+  <rect x="0" y="675" width="800" height="391" fill="url(#glossyFloor)" />
+  <line x1="0" y1="675" x2="800" y2="675" stroke="#cbd5e1" stroke-width="1" />
+
+  <!-- Floor Grid Reflections (Subtle) -->
+  <line x1="400" y1="675" x2="400" y2="1066" stroke="#ffffff" stroke-width="2" opacity="0.8" />
+  <line x1="300" y1="675" x2="160" y2="1066" stroke="#ffffff" stroke-width="1.5" opacity="0.5" />
+  <line x1="500" y1="675" x2="640" y2="1066" stroke="#ffffff" stroke-width="1.5" opacity="0.5" />
+
+  <!-- ================= MONUMENTAL 3D ARCHITECTURAL HEAD SCULPTURE ================= -->
+  <!-- Composed of stacked voxels, miniature buildings, windows, and modular blocks forming a side profile -->
+  <g id="architectural-head" filter="url(#blockShadow)">
+    <!-- Base silhouette anchor -->
+    <rect x="230" y="480" width="80" height="150" fill="#27272a" />
+    <rect x="190" y="520" width="60" height="110" fill="#18181b" />
+    <rect x="160" y="560" width="50" height="70" fill="#3f3f46" />
+    <rect x="270" y="450" width="60" height="180" fill="#334155" />
+
+    <!-- Mini Skyscrapers & Highrise Windows on Neck & Base -->
+    <rect x="180" y="530" width="18" height="60" fill="#09090b" />
+    <g fill="#94a3b8" opacity="0.7">
+      <rect x="183" y="535" width="4" height="4" /><rect x="191" y="535" width="4" height="4" />
+      <rect x="183" y="543" width="4" height="4" /><rect x="191" y="543" width="4" height="4" />
+      <rect x="183" y="551" width="4" height="4" /><rect x="191" y="551" width="4" height="4" />
+      <rect x="183" y="559" width="4" height="4" /><rect x="191" y="559" width="4" height="4" />
+    </g>
+
+    <!-- Main Head Block Mass (Upper Cranium / Afro) -->
+    <!-- Stepped voxel afro cubes in dark charcoals and slate -->
+    <rect x="230" y="100" width="45" height="40" fill="#18181b" />
+    <rect x="270" y="90" width="50" height="50" fill="#27272a" />
+    <rect x="315" y="85" width="55" height="55" fill="#1e293b" />
+    <rect x="365" y="85" width="50" height="50" fill="#0f172a" />
+    <rect x="410" y="90" width="60" height="60" fill="#18181b" />
+    <rect x="465" y="105" width="50" height="50" fill="#27272a" />
+    <rect x="510" y="125" width="45" height="50" fill="#1e293b" />
+    <rect x="545" y="150" width="30" height="40" fill="#09090b" />
+
+    <!-- Miniature building antennas & spire details -->
+    <rect x="415" y="65" width="6" height="30" fill="#475569" />
+    <rect x="425" y="70" width="8" height="25" fill="#334155" />
+    <rect x="515" y="95" width="10" height="35" fill="#1e293b" />
+    <line x1="418" y1="50" x2="418" y2="70" stroke="#64748b" stroke-width="2" />
+    <line x1="520" y1="80" x2="520" y2="100" stroke="#64748b" stroke-width="2" />
+
+    <!-- Cranium Mid Layer (Complex Voxel Cubes) -->
+    <rect x="210" y="140" width="50" height="50" fill="#27272a" />
+    <rect x="255" y="135" width="55" height="55" fill="#3f3f46" />
+    <rect x="305" y="135" width="60" height="60" fill="#18181b" />
+    <rect x="360" y="130" width="65" height="65" fill="#27272a" />
+    <rect x="420" y="145" width="60" height="60" fill="#334155" />
+    <rect x="475" y="150" width="55" height="55" fill="#1e293b" />
+    <rect x="525" y="170" width="45" height="55" fill="#0f172a" />
+    <rect x="560" y="185" width="35" height="50" fill="#27272a" />
+
+    <!-- Back of Head Voxel Clusters -->
+    <rect x="175" y="185" width="40" height="40" fill="#18181b" />
+    <rect x="200" y="185" width="55" height="55" fill="#27272a" />
+    <rect x="180" y="225" width="45" height="50" fill="#3f3f46" />
+    <rect x="170" y="270" width="40" height="45" fill="#18181b" />
+    <rect x="195" y="270" width="50" height="50" fill="#27272a" />
+    <rect x="185" y="315" width="40" height="45" fill="#09090b" />
+
+    <!-- Miniature Windows on Upper Cubes -->
+    <g fill="#cbd5e1" opacity="0.6">
+      <rect x="260" y="140" width="6" height="6" /><rect x="270" y="140" width="6" height="6" /><rect x="280" y="140" width="6" height="6" />
+      <rect x="260" y="150" width="6" height="6" /><rect x="270" y="150" width="6" height="6" /><rect x="280" y="150" width="6" height="6" />
+      <rect x="370" y="140" width="5" height="8" /><rect x="380" y="140" width="5" height="8" /><rect x="390" y="140" width="5" height="8" />
+      <rect x="370" y="152" width="5" height="8" /><rect x="380" y="152" width="5" height="8" /><rect x="390" y="152" width="5" height="8" />
+    </g>
+
+    <!-- Face Area of Silhouette (Facing Right) - Architectural Stepped Facade -->
+    <!-- Forehead blocks -->
+    <rect x="430" y="200" width="60" height="50" fill="#94a3b8" />
+    <rect x="485" y="200" width="55" height="45" fill="#cbd5e1" />
+    <rect x="535" y="205" width="50" height="40" fill="#e2e8f0" />
+    <rect x="580" y="215" width="35" height="35" fill="#cbd5e1" />
+
+    <!-- Brow & Nose Projection -->
+    <rect x="500" y="240" width="50" height="50" fill="#e2e8f0" />
+    <rect x="545" y="240" width="45" height="45" fill="#f1f5f9" />
+    <rect x="585" y="245" width="40" height="40" fill="#e2e8f0" />
+    <rect x="620" y="250" width="35" height="35" fill="#cbd5e1" /> <!-- Nose bridge tip -->
+
+    <!-- Glasses Frame Built of Dark Architectural Beams -->
+    <rect x="440" y="260" width="130" height="28" fill="#18181b" />
+    <rect x="560" y="255" width="60" height="36" fill="#09090b" />
+    <line x1="390" y1="270" x2="450" y2="270" stroke="#18181b" stroke-width="8" />
+
+    <!-- Cheek & Jawline Blocks -->
+    <rect x="440" y="285" width="60" height="55" fill="#cbd5e1" />
+    <rect x="495" y="280" width="55" height="55" fill="#e2e8f0" />
+    <rect x="545" y="285" width="50" height="50" fill="#cbd5e1" />
+    <rect x="575" y="315" width="30" height="25" fill="#94a3b8" />
+
+    <!-- Architectural Ear (Curved Concrete Canopy Structure) -->
+    <path d="M 360 280 Q 400 270 410 310 Q 415 360 380 375 Q 350 380 345 340 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="3" />
+    <path d="M 370 295 Q 390 290 395 320 Q 395 345 375 355" fill="none" stroke="#475569" stroke-width="4" />
+
+    <!-- Lips & Chin Blocks -->
+    <rect x="535" y="330" width="45" height="25" fill="#e2e8f0" />
+    <rect x="575" y="335" width="35" height="20" fill="#cbd5e1" /> <!-- Upper Lip -->
+    <rect x="550" y="355" width="30" height="15" fill="#94a3b8" />
+    <rect x="570" y="360" width="35" height="20" fill="#cbd5e1" /> <!-- Lower Lip -->
+
+    <!-- Beard & Jaw (Dark High-Rise Blocks) -->
+    <rect x="450" y="340" width="70" height="60" fill="#27272a" />
+    <rect x="515" y="375" width="60" height="50" fill="#18181b" />
+    <rect x="565" y="380" width="50" height="50" fill="#09090b" /> <!-- Chin block -->
+    <rect x="420" y="390" width="70" height="60" fill="#18181b" />
+    <rect x="480" y="420" width="70" height="60" fill="#27272a" />
+    <rect x="540" y="425" width="50" height="40" fill="#18181b" />
+
+    <!-- Window pattern grids on face blocks -->
+    <g fill="#475569" opacity="0.8">
+      <rect x="445" y="210" width="6" height="8" /><rect x="455" y="210" width="6" height="8" /><rect x="465" y="210" width="6" height="8" />
+      <rect x="445" y="222" width="6" height="8" /><rect x="455" y="222" width="6" height="8" /><rect x="465" y="222" width="6" height="8" />
+      <rect x="500" y="210" width="6" height="8" /><rect x="510" y="210" width="6" height="8" />
+      <rect x="500" y="222" width="6" height="8" /><rect x="510" y="222" width="6" height="8" />
+    </g>
+  </g>
+
+  <!-- ================= FLOATING ARCHITECTURAL GLASS PANELS ================= -->
+  <!-- Back Left Glass Panel (Wireframe house) -->
+  <g filter="url(#subtleShadow)">
+    <polygon points="20,100 150,140 150,330 20,290" fill="url(#glassSheen)" stroke="#94a3b8" stroke-width="1.5" />
+    <!-- Architectural elevation drawing -->
+    <line x1="40" y1="200" x2="130" y2="230" stroke="#475569" stroke-width="1" />
+    <line x1="40" y1="260" x2="130" y2="290" stroke="#475569" stroke-width="1" />
+    <line x1="50" y1="160" x2="90" y2="175" stroke="#475569" stroke-width="1" />
+    <line x1="90" y1="175" x2="125" y2="185" stroke="#475569" stroke-width="1" />
+    <rect x="65" y="215" width="20" height="25" fill="none" stroke="#64748b" stroke-width="1" />
+  </g>
+
+  <!-- Back Right Glass Panel (Wireframe structure) -->
+  <g filter="url(#subtleShadow)">
+    <polygon points="650,140 780,100 780,290 650,330" fill="url(#glassSheen)" stroke="#94a3b8" stroke-width="1.5" />
+    <!-- Architectural plan sketch -->
+    <rect x="670" y="170" width="80" height="80" fill="none" stroke="#64748b" stroke-width="1" />
+    <line x1="670" y1="210" x2="750" y2="210" stroke="#94a3b8" stroke-width="0.8" />
+    <line x1="710" y1="170" x2="710" y2="250" stroke="#94a3b8" stroke-width="0.8" />
+    <circle cx="710" cy="210" r="18" fill="none" stroke="#64748b" stroke-width="1" />
+  </g>
+
+  <!-- Mid Left Glass Panel (Sketch) -->
+  <polygon points="30,560 160,540 160,740 30,760" fill="url(#glassSheen)" stroke="#94a3b8" stroke-width="1.5" />
+  <g stroke="#64748b" stroke-width="1" fill="none">
+    <line x1="50" y1="670" x2="140" y2="650" />
+    <polyline points="60,670 90,620 130,650" />
+    <polyline points="70,620 110,590 140,620" />
+  </g>
+
+  <!-- Mid Right Glass Panel (Floorplan) -->
+  <polygon points="640,540 770,560 770,760 640,740" fill="url(#glassSheen)" stroke="#94a3b8" stroke-width="1.5" />
+
+  <!-- FOREGROUND GLASS PANEL LEFT: "BUILT DIFFERENT" -->
+  <g filter="url(#subtleShadow)">
+    <polygon points="10,300 210,340 210,560 10,520" fill="#ffffff" fill-opacity="0.85" stroke="#cbd5e1" stroke-width="2" />
+    <!-- Glass edge reflection gleam -->
+    <line x1="12" y1="302" x2="208" y2="341" stroke="#ffffff" stroke-width="3" />
+
+    <!-- Typography: BUILT DIFFERENT -->
+    <text x="35" y="415" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="34" fill="#09090b" letter-spacing="-1">BUILT</text>
+    <text x="35" y="465" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="34" fill="#09090b" letter-spacing="-1">DIFFERENT</text>
+    <text x="36" y="500" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="16" fill="#18181b">Learn. Adapt. Build.</text>
+  </g>
+
+  <!-- FOREGROUND GLASS PANEL RIGHT: "IDENTITY IS ARCHITECTURE" -->
+  <g filter="url(#subtleShadow)">
+    <polygon points="590,340 790,300 790,520 590,560" fill="#ffffff" fill-opacity="0.85" stroke="#cbd5e1" stroke-width="2" />
+    <!-- Glass edge reflection gleam -->
+    <line x1="592" y1="341" x2="788" y2="302" stroke="#ffffff" stroke-width="3" />
+
+    <!-- Typography: IDENTITY IS ARCHITECTURE -->
+    <text x="605" y="425" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="28" fill="#09090b" letter-spacing="-0.5">IDENTITY IS</text>
+    <text x="605" y="465" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="28" fill="#09090b" letter-spacing="-0.5">ARCHITECTURE</text>
+  </g>
+
+  <!-- Sub-Panel Right Lower: "Understand People. Adapt Fast. Create Value." -->
+  <g filter="url(#subtleShadow)">
+    <polygon points="620,560 780,540 780,730 620,750" fill="#ffffff" fill-opacity="0.9" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="635" y="615" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" fill="#09090b">Understand People.</text>
+    <text x="635" y="640" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" fill="#09090b">Adapt Fast.</text>
+    <text x="635" y="665" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" fill="#09090b">Create Value.</text>
+  </g>
+
+  <!-- ================= REFLECTION ON GLOSSY FLOOR ================= -->
+  <g opacity="0.28" transform="scale(1, -1) translate(0, -1700)">
+    <!-- Mirrored legs & shoes reflection -->
+    <path d="M 370 820 L 390 820 L 395 720 L 365 720 Z" fill="#0c0a09" />
+    <path d="M 410 820 L 430 820 L 435 720 L 405 720 Z" fill="#0c0a09" />
+    <!-- Mirrored white sneakers -->
+    <ellipse cx="380" cy="830" rx="18" ry="12" fill="#ffffff" />
+    <ellipse cx="420" cy="830" rx="18" ry="12" fill="#ffffff" />
+  </g>
+  <!-- Floor glare overlay -->
+  <rect x="0" y="675" width="800" height="391" fill="url(#reflectionFade)" opacity="0.4" />
+
+  <!-- ================= CENTER SUBJECT: RAY ================= -->
+  <!-- Walking Forward in All-Black Tailored Bomber Outfit, White Sneakers -->
+  <g id="ray-walking-figure">
+    <!-- Drop Shadow on Floor under Shoes -->
+    <ellipse cx="385" cy="855" rx="28" ry="8" fill="#0f172a" opacity="0.35" filter="url(#subtleShadow)" />
+    <ellipse cx="430" cy="815" rx="22" ry="6" fill="#0f172a" opacity="0.25" filter="url(#subtleShadow)" />
+
+    <!-- BACK LEG (Left Leg stepping backward / mid-stride) -->
+    <!-- Trousers Back Leg -->
+    <path d="M 420 590 L 442 595 L 432 725 L 418 785 L 440 788 L 445 798 L 418 805 L 410 740 L 414 590 Z" fill="url(#trousersGrad)" />
+    <!-- Back Foot (White Sneaker) -->
+    <g id="back-shoe">
+      <!-- White shoe body -->
+      <path d="M 416 785 Q 438 780 442 795 Q 445 808 438 815 Q 425 820 415 815 Q 410 805 416 785 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+      <!-- Sneaker sole -->
+      <path d="M 412 810 L 438 810 Q 442 815 438 818 L 414 818 Q 410 815 412 810 Z" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" />
+      <!-- Tongue & Laces -->
+      <line x1="422" y1="788" x2="432" y2="792" stroke="#cbd5e1" stroke-width="1.5" />
+      <line x1="420" y1="795" x2="434" y2="798" stroke="#cbd5e1" stroke-width="1.5" />
+    </g>
+
+    <!-- FRONT LEG (Right Leg stepping forward toward viewer) -->
+    <g id="front-leg">
+      <!-- Trousers Front Leg -->
+      <path d="M 368 585 L 405 588 L 412 730 L 404 815 L 372 815 L 362 730 L 368 585 Z" fill="url(#trousersGrad)" />
+      <!-- Crease and fabric fold lines on black trousers -->
+      <path d="M 388 595 L 390 730 L 388 810" stroke="#27272a" stroke-width="2" />
+      <path d="M 370 735 Q 380 745 372 755" stroke="#27272a" stroke-width="1.5" />
+      <path d="M 395 760 Q 405 770 398 780" stroke="#27272a" stroke-width="1.5" />
+      <!-- Cuff at bottom -->
+      <rect x="370" y="810" width="36" height="6" rx="2" fill="#09090b" />
+    </g>
+
+    <!-- FRONT FOOT (White Sneaker Stepping Forward) -->
+    <g id="front-shoe">
+      <!-- Shoe base & leather upper -->
+      <path d="M 370 812 Q 386 805 400 812 Q 408 830 404 855 Q 385 865 370 855 Q 365 835 370 812 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#subtleShadow)" />
+      <!-- Thick clean white midsole / rubber cupsole -->
+      <path d="M 368 845 Q 385 850 406 845 Q 408 858 402 865 Q 386 870 370 865 Q 366 858 368 845 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2" />
+      <!-- Front toe cap contour -->
+      <path d="M 372 840 Q 386 846 400 840" fill="none" stroke="#e2e8f0" stroke-width="2" />
+      <!-- Laces & Eyelet Stay -->
+      <path d="M 380 815 L 392 815 M 378 823 L 394 823 M 377 831 L 395 831" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" />
+    </g>
+
+    <!-- TORSO & SLEEK BLACK BOMBER JACKET -->
+    <g id="bomber-jacket">
+      <!-- Black T-shirt / Polo inside collar -->
+      <path d="M 386 395 L 418 395 L 424 430 L 380 430 Z" fill="#09090b" />
+      <path d="M 392 405 L 412 405 L 402 430 Z" fill="#18181b" />
+
+      <!-- Main Bomber Jacket Body -->
+      <path d="M 355 410 Q 345 425 342 490 Q 340 550 355 595 L 445 595 Q 460 550 458 490 Q 455 425 445 410 Q 418 415 402 415 Q 382 415 355 410 Z" fill="url(#bomberJacket)" stroke="#09090b" stroke-width="1.5" filter="url(#subtleShadow)" />
+
+      <!-- Ribbed collar -->
+      <path d="M 375 402 Q 402 412 428 402 L 424 414 Q 402 422 380 414 Z" fill="#09090b" />
+
+      <!-- Center Zipper Line -->
+      <line x1="402" y1="416" x2="402" y2="592" stroke="url(#zipperGleam)" stroke-width="2.5" />
+      <circle cx="402" cy="425" r="2.5" fill="#e2e8f0" />
+
+      <!-- Chest Seams & Zipper Pockets -->
+      <line x1="365" y1="485" x2="390" y2="495" stroke="#27272a" stroke-width="2" />
+      <line x1="438" y1="485" x2="414" y2="495" stroke="#27272a" stroke-width="2" />
+
+      <!-- Jacket Hem Ribbing (Elastic Waistband) -->
+      <rect x="355" y="585" width="90" height="12" rx="4" fill="#09090b" stroke="#27272a" stroke-width="1" />
+
+      <!-- LEFT ARM (Viewer Left - natural swing) -->
+      <path d="M 355 410 Q 330 440 325 500 Q 320 560 340 595 L 358 585 Q 342 545 345 490 Q 350 445 365 425 Z" fill="url(#bomberJacket)" />
+      <!-- Ribbed cuff -->
+      <rect x="332" y="585" width="22" height="10" rx="3" fill="#09090b" transform="rotate(15, 343, 590)" />
+      <!-- Hand (Natural relaxed fingers) -->
+      <path d="M 334 598 Q 330 625 338 638 Q 346 642 352 632 Q 355 615 352 596 Z" fill="url(#skinShade)" />
+
+      <!-- RIGHT ARM (Viewer Right - natural swing) -->
+      <path d="M 445 410 Q 470 440 475 500 Q 480 560 460 595 L 442 585 Q 458 545 455 490 Q 450 445 435 425 Z" fill="url(#bomberJacket)" />
+      <!-- Ribbed cuff -->
+      <rect x="446" y="585" width="22" height="10" rx="3" fill="#09090b" transform="rotate(-15, 457, 590)" />
+      <!-- Hand -->
+      <path d="M 466 598 Q 470 625 462 638 Q 454 642 448 632 Q 445 615 448 596 Z" fill="url(#skinShade)" />
+    </g>
+
+    <!-- NECK & CHIN -->
+    <g id="neck-head">
+      <!-- Neck -->
+      <path d="M 390 380 L 414 380 L 416 405 L 388 405 Z" fill="url(#skinShade)" />
+      <path d="M 398 385 L 406 385 L 406 405 L 398 405 Z" fill="#c2632b" opacity="0.3" />
+
+      <!-- Head Base & Jawline -->
+      <path d="M 382 315 Q 380 365 390 385 Q 402 396 414 385 Q 424 365 422 315 Q 402 305 382 315 Z" fill="url(#skinShade)" filter="url(#subtleShadow)" />
+
+      <!-- Trimmed Goatee & Beard -->
+      <!-- Mustache -->
+      <path d="M 394 365 Q 402 363 410 365 Q 402 370 394 365 Z" fill="#1c1917" />
+      <!-- Soul patch & Chin beard -->
+      <ellipse cx="402" cy="374" rx="3" ry="3" fill="#1c1917" />
+      <path d="M 392 376 Q 402 378 412 376 Q 408 392 402 394 Q 396 392 392 376 Z" fill="#1c1917" />
+      <!-- Jawline stubble shadow -->
+      <path d="M 384 345 Q 390 375 398 388 L 406 388 Q 414 375 420 345" fill="none" stroke="#27272a" stroke-width="2.5" stroke-linecap="round" opacity="0.45" />
+
+      <!-- Ears -->
+      <ellipse cx="379" cy="345" rx="5" ry="10" fill="url(#skinShade)" />
+      <ellipse cx="425" cy="345" rx="5" ry="10" fill="url(#skinShade)" />
+
+      <!-- NOSE & BROWS -->
+      <path d="M 400 338 L 402 355 L 405 355" fill="none" stroke="#a14d18" stroke-width="1.8" stroke-linecap="round" />
+
+      <!-- DARK SUNGLASSES (Tinted Specs with Cool Reflection Glints) -->
+      <g id="sunglasses">
+        <!-- Left Lens (Viewer Left) -->
+        <path d="M 384 330 Q 392 328 399 330 Q 400 344 392 346 Q 384 344 384 330 Z" fill="url(#glassesTint)" stroke="#09090b" stroke-width="2" />
+        <path d="M 386 332 L 396 333" stroke="url(#glassStreak)" stroke-width="2" stroke-linecap="round" />
+
+        <!-- Bridge -->
+        <line x1="399" y1="332" x2="405" y2="332" stroke="#09090b" stroke-width="2.5" />
+
+        <!-- Right Lens (Viewer Right) -->
+        <path d="M 405 330 Q 412 328 420 330 Q 420 344 412 346 Q 404 344 405 330 Z" fill="url(#glassesTint)" stroke="#09090b" stroke-width="2" />
+        <path d="M 407 332 L 417 333" stroke="url(#glassStreak)" stroke-width="2" stroke-linecap="round" />
+
+        <!-- Temple Arms to Ears -->
+        <line x1="384" y1="332" x2="379" y2="336" stroke="#09090b" stroke-width="2" />
+        <line x1="420" y1="332" x2="425" y2="336" stroke="#09090b" stroke-width="2" />
+      </g>
+
+      <!-- CURLY AFRO HAIR (Sculpted texture with rich volume) -->
+      <g id="afro-hair">
+        <!-- Base hair mass -->
+        <path d="M 374 330 Q 365 305 372 280 Q 385 250 402 248 Q 420 250 432 280 Q 438 305 430 330 Q 425 300 402 298 Q 380 300 374 330 Z" fill="#18181b" />
+        <!-- Individual organic curls along perimeter -->
+        <circle cx="372" cy="315" r="7" fill="#1c1917" /><circle cx="368" cy="298" r="8" fill="#27272a" />
+        <circle cx="372" cy="280" r="9" fill="#1c1917" /><circle cx="380" cy="265" r="9" fill="#27272a" />
+        <circle cx="392" cy="254" r="10" fill="#18181b" /><circle cx="405" cy="250" r="10" fill="#27272a" />
+        <circle cx="418" cy="255" r="10" fill="#1c1917" /><circle cx="428" cy="268" r="9" fill="#27272a" />
+        <circle cx="434" cy="285" r="8" fill="#18181b" /><circle cx="434" cy="302" r="8" fill="#27272a" />
+        <circle cx="430" cy="318" r="7" fill="#1c1917" />
+        <!-- Top curl highlights -->
+        <circle cx="395" cy="265" r="6" fill="#3f3f46" opacity="0.4" />
+        <circle cx="410" cy="262" r="6" fill="#3f3f46" opacity="0.4" />
+        <circle cx="385" cy="275" r="6" fill="#3f3f46" opacity="0.3" />
+      </g>
+    </g>
+  </g>
+
+  <!-- High-Key Gallery Vignette / Subtle Floor Glow -->
+  <circle cx="400" cy="1066" r="300" fill="#ffffff" opacity="0.15" />
+</svg>
