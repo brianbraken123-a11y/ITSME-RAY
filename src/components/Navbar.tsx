@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Menu, X, ArrowUpRight, Compass, FileText, Download, Plus, Camera, Play, Film } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowUpRight, Compass, FileText, Download, Plus, Camera, Film } from 'lucide-react';
 import { profileData } from '../data/profile';
 
 interface NavbarProps {
@@ -110,6 +110,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           )}
 
+          {/* Download Video CTA */}
+          {onOpenVideo && (
+            <button
+              id="nav-video-cta"
+              onClick={onOpenVideo}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-xs transition-all transform active:scale-95 cursor-pointer"
+              title="Lihat Perjalanan Karir (Video)"
+            >
+              <Film className="w-3.5 h-3.5" />
+              <span>Video</span>
+            </button>
+          )}
+
           {/* Download CV CTA */}
           {onOpenCv && (
             <button
@@ -120,19 +133,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Download className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
               <span>CV</span>
-            </button>
-          )}
-
-          {/* Watch Career Video CTA */}
-          {onOpenVideo && (
-            <button
-              id="nav-video-cta"
-              onClick={onOpenVideo}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-xs transition-all transform active:scale-95 cursor-pointer"
-              title="Lihat Perjalanan Karir (Video)"
-            >
-              <Film className="w-3.5 h-3.5" />
-              <span>Video</span>
             </button>
           )}
 
@@ -244,7 +244,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }}
                 className="w-full py-2.5 flex items-center justify-center gap-2 text-xs font-semibold rounded-lg bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-200 border border-amber-300/60 dark:border-amber-800/60 cursor-pointer"
               >
-                <Play className="w-4 h-4 text-amber-600 dark:text-amber-400 fill-current" />
+                <Film className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                 <span>Tonton Video Perjalanan Karir</span>
               </button>
             )}

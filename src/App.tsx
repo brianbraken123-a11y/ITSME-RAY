@@ -20,7 +20,7 @@ import { VideoHeroBanner } from './components/VideoHeroBanner';
 import { CreatePostModal } from './components/CreatePostModal';
 import { PhotoManagerModal } from './components/PhotoManagerModal';
 import { Story, Opinion } from './types';
-import { Plus, Camera, Feather } from 'lucide-react';
+import { Plus, Camera, Feather, Film } from 'lucide-react';
 
 const sectionScrollVariant: Variants = {
   hidden: { opacity: 0, y: 25 },
@@ -150,12 +150,12 @@ function MainApp() {
         onOpenCv={() => setIsCvOpen(true)}
         onOpenCreatePost={() => openCreatePost('story')}
         onOpenPhotoManager={() => setIsPhotoModalOpen(true)}
-        onOpenVideo={handleOpenVideo}
+        onOpenVideo={() => setIsVideoOpen(true)}
       />
 
       <main>
         {/* Auto-show Career Video Banner (first visit only) */}
-        <VideoHeroBanner onWatch={handleOpenVideo} />
+        <VideoHeroBanner onWatch={handleOpenVideo} className="pt-16 max-w-6xl mx-auto" />
 
         {/* 1. Hero Section with Hyper-Realistic Photo & Post CTAs - Animated on mount */}
         <motion.div
