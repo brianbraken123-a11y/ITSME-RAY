@@ -15,6 +15,8 @@ import { Footer } from './components/Footer';
 import { StoryReaderModal } from './components/StoryReaderModal';
 import { OpinionReaderModal } from './components/OpinionReaderModal';
 import { CvModal } from './components/CvModal';
+import { VideoModal } from './components/VideoModal';
+import { VideoHeroBanner } from './components/VideoHeroBanner';
 import { CreatePostModal } from './components/CreatePostModal';
 import { PhotoManagerModal } from './components/PhotoManagerModal';
 import { Story, Opinion } from './types';
@@ -35,6 +37,7 @@ function MainApp() {
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
   const [selectedOpinion, setSelectedOpinion] = useState<Opinion | null>(null);
   const [isCvOpen, setIsCvOpen] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   // Post Creator Modal state
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
@@ -134,6 +137,10 @@ function MainApp() {
     }
   };
 
+  const handleOpenVideo = () => {
+    setIsVideoOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-[#faf9f6] text-[#1c1917] dark:bg-[#0c0a09] dark:text-[#f5f5f4] transition-colors duration-300 font-sans-ui selection:bg-amber-500/20 selection:text-amber-900 dark:selection:bg-amber-500/30 dark:selection:text-amber-200">
       {/* Navigation Bar */}
@@ -143,9 +150,13 @@ function MainApp() {
         onOpenCv={() => setIsCvOpen(true)}
         onOpenCreatePost={() => openCreatePost('story')}
         onOpenPhotoManager={() => setIsPhotoModalOpen(true)}
+        onOpenVideo={handleOpenVideo}
       />
 
       <main>
+        {/* Auto-show Career Video Banner (first visit only) */}
+        <VideoHeroBanner onWatch={handleOpenVideo} />
+
         {/* 1. Hero Section with Hyper-Realistic Photo & Post CTAs - Animated on mount */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
@@ -158,6 +169,7 @@ function MainApp() {
             onOpenCv={() => setIsCvOpen(true)}
             onOpenCreatePost={() => openCreatePost('story')}
             onOpenPhotoManager={() => setIsPhotoModalOpen(true)}
+            onOpenVideo={handleOpenVideo}
           />
         </motion.div>
 
@@ -196,7 +208,7 @@ function MainApp() {
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
         >
-          <ExperienceSection />
+          <ExperienceSection onOpenVideo={handleOpenVideo} />
         </motion.div>
 
         {/* 5. Storytelling About Section */}
@@ -264,6 +276,12 @@ function MainApp() {
       <CvModal
         isOpen={isCvOpen}
         onClose={() => setIsCvOpen(false)}
+      />
+
+      {/* Career Journey Video Modal */}
+      <VideoModal
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
       />
 
       {/* Modals for Immersive Article Reading */}

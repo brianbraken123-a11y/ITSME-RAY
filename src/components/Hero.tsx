@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { profileData } from '../data/profile';
 import { useContent } from '../context/ContentContext';
-import { ArrowRight, BookOpen, Layers, RefreshCw, MessageCircle, Instagram, Mail, Sparkles, User, Download, FileText, Camera, Plus } from 'lucide-react';
+import { ArrowRight, BookOpen, Layers, RefreshCw, MessageCircle, Instagram, Mail, Sparkles, User, Download, FileText, Camera, Plus, Play } from 'lucide-react';
 
 interface HeroProps {
   onExploreStories: () => void;
@@ -9,6 +9,7 @@ interface HeroProps {
   onOpenCv?: () => void;
   onOpenCreatePost?: () => void;
   onOpenPhotoManager?: () => void;
+  onOpenVideo?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
@@ -16,7 +17,8 @@ export const Hero: React.FC<HeroProps> = ({
   onSeeWork,
   onOpenCv,
   onOpenCreatePost,
-  onOpenPhotoManager
+  onOpenPhotoManager,
+  onOpenVideo
 }) => {
   const { profilePhoto, stories, opinions, totalStories, totalOpinions } = useContent();
   const [headlineIndex, setHeadlineIndex] = useState(0);
@@ -114,6 +116,18 @@ export const Hero: React.FC<HeroProps> = ({
               >
                 <Download className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 <span>Download CV</span>
+              </button>
+            )}
+
+            {onOpenVideo && (
+              <button
+                id="hero-cta-video"
+                onClick={onOpenVideo}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-amber-100 hover:bg-amber-200 dark:bg-amber-950/70 dark:hover:bg-amber-900/80 text-amber-800 dark:text-amber-200 border border-amber-300/70 dark:border-amber-800/70 text-sm font-semibold transition-all cursor-pointer shadow-xs"
+                title="Tonton Video Perjalanan Karir"
+              >
+                <Play className="w-4 h-4 text-amber-600 dark:text-amber-400 fill-current" />
+                <span>Video Karir</span>
               </button>
             )}
 

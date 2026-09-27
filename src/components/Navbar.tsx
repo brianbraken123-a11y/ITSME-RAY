@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Menu, X, ArrowUpRight, Compass, FileText, Download, Plus, Camera } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowUpRight, Compass, FileText, Download, Plus, Camera, Play, Film } from 'lucide-react';
 import { profileData } from '../data/profile';
 
 interface NavbarProps {
@@ -9,6 +9,7 @@ interface NavbarProps {
   onOpenCv?: () => void;
   onOpenCreatePost?: () => void;
   onOpenPhotoManager?: () => void;
+  onOpenVideo?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -16,7 +17,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   onOpenCv,
   onOpenCreatePost,
-  onOpenPhotoManager
+  onOpenPhotoManager,
+  onOpenVideo
 }) => {
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -121,6 +123,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           )}
 
+          {/* Watch Career Video CTA */}
+          {onOpenVideo && (
+            <button
+              id="nav-video-cta"
+              onClick={onOpenVideo}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-xs transition-all transform active:scale-95 cursor-pointer"
+              title="Lihat Perjalanan Karir (Video)"
+            >
+              <Film className="w-3.5 h-3.5" />
+              <span>Video</span>
+            </button>
+          )}
+
           {/* Theme Toggle */}
           <button
             id="theme-toggle-btn"
@@ -217,6 +232,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <Download className="w-4 h-4" />
                 <span>Lihat & Download CV (PDF)</span>
+              </button>
+            )}
+
+            {onOpenVideo && (
+              <button
+                id="mobile-video-cta"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenVideo();
+                }}
+                className="w-full py-2.5 flex items-center justify-center gap-2 text-xs font-semibold rounded-lg bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-200 border border-amber-300/60 dark:border-amber-800/60 cursor-pointer"
+              >
+                <Play className="w-4 h-4 text-amber-600 dark:text-amber-400 fill-current" />
+                <span>Tonton Video Perjalanan Karir</span>
               </button>
             )}
             <button

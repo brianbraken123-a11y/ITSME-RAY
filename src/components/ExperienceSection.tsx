@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { experiencesData } from '../data/experiences';
-import { Briefcase, MapPin, Calendar, ArrowRight, CheckCircle2, Zap, Award } from 'lucide-react';
+import { Briefcase, MapPin, Calendar, ArrowRight, CheckCircle2, Zap, Award, Play } from 'lucide-react';
 
-export const ExperienceSection: React.FC = () => {
+interface ExperienceSectionProps {
+  onOpenVideo?: () => void;
+}
+
+export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ onOpenVideo }) => {
   const [selectedExpId, setSelectedExpId] = useState<string>(experiencesData[0].id);
 
   const selectedExp = experiencesData.find((e) => e.id === selectedExpId) || experiencesData[0];
@@ -10,17 +14,30 @@ export const ExperienceSection: React.FC = () => {
   return (
     <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-stone-200/80 dark:border-stone-800/80">
       {/* Section Header */}
-      <div className="mb-12">
-        <div className="inline-flex items-center gap-2 text-xs font-mono-tag uppercase tracking-widest text-amber-700 dark:text-amber-400 font-bold mb-2">
-          <Briefcase className="w-3.5 h-3.5" />
-          <span>Real-World Evolution</span>
+      <div className="mb-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <div className="inline-flex items-center gap-2 text-xs font-mono-tag uppercase tracking-widest text-amber-700 dark:text-amber-400 font-bold mb-2">
+            <Briefcase className="w-3.5 h-3.5" />
+            <span>Real-World Evolution</span>
+          </div>
+          <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
+            Career & Skill Timeline
+          </h2>
+          <p className="mt-3 text-base text-stone-600 dark:text-stone-400 max-w-2xl font-sans-ui">
+            Bukan deretan titel tanpa makna. Sebuah rekam jejak tentang apa yang dikerjakan di lapangan, keterampilan apa yang ditempa, dan bagaimana pengalaman itu mengubah cara berpikir.
+          </p>
         </div>
-        <h2 className="font-editorial text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
-          Career & Skill Timeline
-        </h2>
-        <p className="mt-3 text-base text-stone-600 dark:text-stone-400 max-w-2xl font-sans-ui">
-          Bukan deretan titel tanpa makna. Sebuah rekam jejak tentang apa yang dikerjakan di lapangan, keterampilan apa yang ditempa, dan bagaimana pengalaman itu mengubah cara berpikir.
-        </p>
+
+        {onOpenVideo && (
+          <button
+            onClick={onOpenVideo}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/30 text-xs font-mono-tag font-semibold transition-all cursor-pointer shrink-0 self-start sm:self-auto hover:scale-105"
+            title="Tonton video rangkuman perjalanan karir"
+          >
+            <Play className="w-3.5 h-3.5 fill-current" />
+            <span>Tonton Video Karir</span>
+          </button>
+        )}
       </div>
 
       {/* Two-Column Responsive Layout: Left Timeline Navigation, Right Detailed Deep Dive */}
