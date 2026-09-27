@@ -27,6 +27,7 @@ export const profileData: ProfileData = {
   instagram: 'https://www.instagram.com/brainbreak19?stkn=MXFqam1tdTg3bXdxZA==',
   linkedin: 'https://www.linkedin.com/in/ryan-taylor',
   photoUrl: '/ray-photo.svg',
-  cvUrl: '/Ryan-Hidayat-Taylor-CV.pdf'
+  cvUrl: '/Ryan-Hidayat-Taylor-CV.pdf',
+  careerVideoUrl: '/career-journey.mp4'
 };
 

@@ -122,6 +122,7 @@ export interface ProfileData {
   instagram: string;
   photoUrl?: string;
   cvUrl?: string;
+  careerVideoUrl?: string;
   linkedin?: string;
   github?: string;
   youtube?: string;
