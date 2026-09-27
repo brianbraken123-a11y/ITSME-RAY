@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { X, Download, Printer, ExternalLink, FileText, Phone, MapPin, Mail, Linkedin, Sparkles } from 'lucide-react';
 import { profileData } from '../data/profile';
+import { useContent } from '../context/ContentContext';
 
 interface CvModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface CvModalProps {
 }
 
 export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
+  const { profilePhoto } = useContent();
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -136,9 +138,9 @@ export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
               </div>
 
               {/* Profile Avatar */}
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-purple-500/40 shrink-0 shadow-md">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-purple-500/40 shrink-0 shadow-md bg-stone-950">
                 <img
-                  src={profileData.photoUrl || '/ray-photo.svg'}
+                  src={profilePhoto || '/ray-photo.jpg'}
                   alt="Ryan Hidayat Taylor"
                   className="w-full h-full object-cover object-top"
                   referrerPolicy="no-referrer"

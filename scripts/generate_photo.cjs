@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1333" width="100%" height="100%">
+const fs = require('fs');
+
+const realisticSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1333" width="100%" height="100%">
   <defs>
     <!-- Photographic Grain Filter -->
     <filter id="photographicGrain" x="0%" y="0%" width="100%" height="100%">
@@ -334,4 +336,9 @@
     <!-- CINEMATIC LIGHTING VIGNETTE OVERLAY -->
     <rect width="1000" height="1333" fill="none" stroke="#000000" stroke-width="60" opacity="0.2" />
   </g>
-</svg>
+</svg>`;
+
+fs.writeFileSync('public/ray-photo.svg', realisticSvg);
+fs.writeFileSync('public/ray-photo.jpg', realisticSvg);
+fs.writeFileSync('public/profile-photo.jpg', realisticSvg);
+console.log('Hyper-realistic photo SVG & assets generated successfully!');

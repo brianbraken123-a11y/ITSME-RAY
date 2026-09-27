@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import { profileData } from '../data/profile';
-import { ArrowRight, BookOpen, Layers, RefreshCw, MessageCircle, Instagram, Mail, Sparkles, User, Download, FileText } from 'lucide-react';
+import { useContent } from '../context/ContentContext';
+import { ArrowRight, BookOpen, Layers, RefreshCw, MessageCircle, Instagram, Mail, Sparkles, User, Download, FileText, Camera, Plus } from 'lucide-react';
 
 interface HeroProps {
   onExploreStories: () => void;
   onSeeWork: () => void;
   onOpenCv?: () => void;
+  onOpenCreatePost?: () => void;
+  onOpenPhotoManager?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onExploreStories, onSeeWork, onOpenCv }) => {
+export const Hero: React.FC<HeroProps> = ({
+  onExploreStories,
+  onSeeWork,
+  onOpenCv,
+  onOpenCreatePost,
+  onOpenPhotoManager
+}) => {
+  const { profilePhoto } = useContent();
   const [headlineIndex, setHeadlineIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
 
@@ -101,6 +111,17 @@ export const Hero: React.FC<HeroProps> = ({ onExploreStories, onSeeWork, onOpenC
                 <span>Download CV</span>
               </button>
             )}
+
+            {onOpenCreatePost && (
+              <button
+                id="hero-cta-create-post"
+                onClick={onOpenCreatePost}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-sm font-semibold transition-all cursor-pointer shadow-sm hover:scale-[1.02]"
+              >
+                <Plus className="w-4 h-4" />
+                <span>+ Buat Post Baru</span>
+              </button>
+            )}
           </div>
 
           {/* Quick Contact Links (ONLY WhatsApp, Instagram, Email) */}
@@ -147,16 +168,30 @@ export const Hero: React.FC<HeroProps> = ({ onExploreStories, onSeeWork, onOpenC
             <div className="absolute -inset-1.5 bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 rounded-3xl blur-md opacity-35 dark:opacity-40 -z-10 group-hover:opacity-60 transition duration-500"></div>
 
             {/* Photo Container */}
-            <div className="relative overflow-hidden rounded-2xl bg-stone-100 dark:bg-stone-900 border-2 border-purple-500/40 shadow-2xl">
+            <div className="relative overflow-hidden rounded-2xl bg-stone-100 dark:bg-stone-900 border-2 border-purple-500/40 shadow-2xl group">
               <img
-                src={imageError ? '/ray-photo.svg' : '/ray-photo.jpg'}
-                alt="Ray (Ryan Hidayat Taylor) - Built Different, Identity is Architecture"
-                className="w-full aspect-[3/4] object-cover object-top transition-transform duration-500 hover:scale-[1.02]"
+                src={imageError ? '/ray-photo.jpg' : (profilePhoto || '/ray-photo.jpg')}
+                alt="Ray (Ryan Hidayat Taylor) - Hyper-Realistic Portrait"
+                className="w-full aspect-[3/4] object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
                 referrerPolicy="no-referrer"
                 onError={() => {
                   if (!imageError) setImageError(true);
                 }}
               />
+
+              {/* Quick Change / Upload Photo Button (Top Left) */}
+              {onOpenPhotoManager && (
+                <button
+                  type="button"
+                  id="hero-change-photo-btn"
+                  onClick={onOpenPhotoManager}
+                  className="absolute top-3 left-3 px-3 py-1.5 rounded-full bg-stone-950/85 hover:bg-purple-900/95 backdrop-blur-md border border-white/30 text-[11px] font-mono-tag font-semibold text-white shadow-lg flex items-center gap-1.5 transition-all hover:scale-105 cursor-pointer z-20 group/btn"
+                  title="Ganti atau unggah foto hyper-realistic (ChatGPT Image)"
+                >
+                  <Camera className="w-3.5 h-3.5 text-purple-300 group-hover/btn:text-white" />
+                  <span>Ganti Foto</span>
+                </button>
+              )}
 
               {/* Minimal Bottom Glass Badge so it doesn't obscure the sneakers */}
               <div className="absolute inset-x-3 bottom-3 rounded-xl bg-stone-950/85 backdrop-blur-md border border-white/15 p-3 text-white shadow-lg">

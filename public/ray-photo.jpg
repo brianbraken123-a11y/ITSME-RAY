@@ -1,451 +1,337 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1066" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1333" width="100%" height="100%">
   <defs>
-    <!-- Gallery Lighting & Gradients -->
-    <linearGradient id="wallBg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#f8fafc" />
-      <stop offset="60%" stop-color="#f1f5f9" />
-      <stop offset="100%" stop-color="#e2e8f0" />
+    <!-- Photographic Grain Filter -->
+    <filter id="photographicGrain" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" result="noise" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.045 0" result="coloredNoise" />
+      <feComposite in="SourceGraphic" in2="coloredNoise" operator="over" />
+    </filter>
+
+    <!-- Lens Blur for Depth of Field -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="25" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="deepBlur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="55" />
+    </filter>
+
+    <!-- Studio Backlight Radial Gradient -->
+    <radialGradient id="studioKeyAtmosphere" cx="50%" cy="38%" r="65%">
+      <stop offset="0%" stop-color="#3b1d54" stop-opacity="0.85" />
+      <stop offset="35%" stop-color="#1e1b4b" stop-opacity="0.9" />
+      <stop offset="70%" stop-color="#0f0e17" stop-opacity="0.98" />
+      <stop offset="100%" stop-color="#050508" stop-opacity="1" />
+    </radialGradient>
+
+    <!-- Rim Light Gradient (Cool Cyan/Purple Edge) -->
+    <linearGradient id="rimLightLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#6366f1" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
     </linearGradient>
 
-    <linearGradient id="ceilingLight" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" />
-      <stop offset="50%" stop-color="#f8fafc" />
-      <stop offset="100%" stop-color="#e2e8f0" />
+    <!-- Key Fill Gradient (Warm Amber Accent) -->
+    <linearGradient id="warmKeyRight" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.45" />
+      <stop offset="60%" stop-color="#d97706" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0" />
     </linearGradient>
 
-    <!-- Glossy Floor Gradient with Horizon -->
-    <linearGradient id="glossyFloor" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#f1f5f9" />
-      <stop offset="25%" stop-color="#ffffff" />
-      <stop offset="70%" stop-color="#f8fafc" />
-      <stop offset="100%" stop-color="#e2e8f0" />
+    <!-- Skin Multi-Layer Tone Gradients -->
+    <linearGradient id="skinBase" x1="30%" y1="15%" x2="70%" y2="85%">
+      <stop offset="0%" stop-color="#fed7aa" />
+      <stop offset="25%" stop-color="#fdbA74" />
+      <stop offset="60%" stop-color="#e08852" />
+      <stop offset="85%" stop-color="#ba5f34" />
+      <stop offset="100%" stop-color="#7c3319" />
     </linearGradient>
 
-    <!-- Floor Reflection Fade -->
-    <linearGradient id="reflectionFade" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#000000" stop-opacity="0.35" />
-      <stop offset="40%" stop-color="#000000" stop-opacity="0.15" />
+    <radialGradient id="foreheadHighlight" cx="48%" cy="32%" r="35%">
+      <stop offset="0%" stop-color="#ffedd5" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#fed7aa" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#e08852" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="cheekHighlightLeft" cx="40%" cy="48%" r="22%">
+      <stop offset="0%" stop-color="#ffedd5" stop-opacity="0.8" />
+      <stop offset="60%" stop-color="#fba879" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#c26338" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="noseBridgeLight" cx="49%" cy="45%" r="18%">
+      <stop offset="0%" stop-color="#fff7ed" stop-opacity="0.95" />
+      <stop offset="40%" stop-color="#fed7aa" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Bomber Jacket Realism Gradients -->
+    <linearGradient id="jacketMain" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#262629" />
+      <stop offset="25%" stop-color="#18181b" />
+      <stop offset="70%" stop-color="#0f0f11" />
+      <stop offset="100%" stop-color="#080809" />
+    </linearGradient>
+
+    <linearGradient id="jacketSheen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.25" />
+      <stop offset="20%" stop-color="#ffffff" stop-opacity="0.12" />
+      <stop offset="50%" stop-color="#000000" stop-opacity="0" />
+      <stop offset="85%" stop-color="#fbbf24" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- Hair Shading & Realistic Sheen -->
+    <linearGradient id="hairDark" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#2e2528" />
+      <stop offset="35%" stop-color="#191416" />
+      <stop offset="70%" stop-color="#0b090a" />
+      <stop offset="100%" stop-color="#050405" />
+    </linearGradient>
+
+    <linearGradient id="hairHighlight" x1="0%" y1="30%" x2="100%" y2="40%">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.5" />
+      <stop offset="45%" stop-color="#d4b499" stop-opacity="0.35" />
+      <stop offset="80%" stop-color="#fbbf24" stop-opacity="0.4" />
       <stop offset="100%" stop-color="#000000" stop-opacity="0" />
     </linearGradient>
 
-    <!-- Glass Panel Shading -->
-    <linearGradient id="glassSheen" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.75" />
-      <stop offset="40%" stop-color="#f8fafc" stop-opacity="0.35" />
-      <stop offset="80%" stop-color="#e2e8f0" stop-opacity="0.25" />
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.6" />
-    </linearGradient>
-
-    <!-- Bomber Jacket Textures & Folds -->
-    <linearGradient id="bomberJacket" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#27272a" />
-      <stop offset="35%" stop-color="#18181b" />
-      <stop offset="70%" stop-color="#09090b" />
-      <stop offset="100%" stop-color="#18181b" />
-    </linearGradient>
-
-    <linearGradient id="zipperGleam" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#e2e8f0" />
-      <stop offset="50%" stop-color="#94a3b8" />
-      <stop offset="100%" stop-color="#64748b" />
-    </linearGradient>
-
-    <!-- Trousers Gradient -->
-    <linearGradient id="trousersGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1c1917" />
-      <stop offset="60%" stop-color="#0c0a09" />
-      <stop offset="100%" stop-color="#18181b" />
-    </linearGradient>
-
-    <!-- Skin Tones -->
-    <linearGradient id="skinShade" x1="20%" y1="0%" x2="80%" y2="100%">
-      <stop offset="0%" stop-color="#fed7aa" />
-      <stop offset="40%" stop-color="#fba068" />
-      <stop offset="85%" stop-color="#c2632b" />
-      <stop offset="100%" stop-color="#8c3a10" />
-    </linearGradient>
-
-    <!-- Sunglasses Tint & Reflection -->
-    <linearGradient id="glassesTint" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#18181b" />
-      <stop offset="50%" stop-color="#09090b" />
-      <stop offset="100%" stop-color="#000000" />
-    </linearGradient>
-
-    <linearGradient id="glassStreak" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6" />
-      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.1" />
-      <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.2" />
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
-    </linearGradient>
-
-    <!-- Dropshadow filter for glass and blocks -->
-    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="2" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08" />
-    </filter>
-
-    <filter id="blockShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="4" dy="6" stdDeviation="3" flood-color="#000000" flood-opacity="0.25" />
-    </filter>
+    <!-- Iris Realistic Multi-layer Gradient -->
+    <radialGradient id="irisGrad" cx="45%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#6b3a1a" />
+      <stop offset="45%" stop-color="#451e08" />
+      <stop offset="85%" stop-color="#230d03" />
+      <stop offset="100%" stop-color="#0f0501" />
+    </radialGradient>
   </defs>
 
-  <!-- ================= BACKGROUND GALLERY ROOM ================= -->
-  <!-- Ceiling -->
-  <rect x="0" y="0" width="800" height="180" fill="url(#ceilingLight)" />
-  <rect x="220" y="0" width="360" height="60" fill="#ffffff" />
-  <line x1="220" y1="0" x2="220" y2="60" stroke="#cbd5e1" stroke-width="1.5" />
-  <line x1="580" y1="0" x2="580" y2="60" stroke="#cbd5e1" stroke-width="1.5" />
-  <line x1="0" y1="60" x2="800" y2="60" stroke="#e2e8f0" stroke-width="1.5" />
+  <!-- Background: Editorial Studio Environment with Depth Bokeh -->
+  <rect width="1000" height="1333" fill="url(#studioKeyAtmosphere)" />
 
-  <!-- Back Wall & Side Walls -->
-  <polygon points="0,60 800,60 800,680 0,680" fill="url(#wallBg)" />
-  <!-- Side wall perspective guides -->
-  <polygon points="0,60 160,140 160,680 0,680" fill="#f1f5f9" opacity="0.6" />
-  <polygon points="800,60 640,140 640,680 800,680" fill="#f1f5f9" opacity="0.6" />
-
-  <!-- Glossy Reflective Floor -->
-  <rect x="0" y="675" width="800" height="391" fill="url(#glossyFloor)" />
-  <line x1="0" y1="675" x2="800" y2="675" stroke="#cbd5e1" stroke-width="1" />
-
-  <!-- Floor Grid Reflections (Subtle) -->
-  <line x1="400" y1="675" x2="400" y2="1066" stroke="#ffffff" stroke-width="2" opacity="0.8" />
-  <line x1="300" y1="675" x2="160" y2="1066" stroke="#ffffff" stroke-width="1.5" opacity="0.5" />
-  <line x1="500" y1="675" x2="640" y2="1066" stroke="#ffffff" stroke-width="1.5" opacity="0.5" />
-
-  <!-- ================= MONUMENTAL 3D ARCHITECTURAL HEAD SCULPTURE ================= -->
-  <!-- Composed of stacked voxels, miniature buildings, windows, and modular blocks forming a side profile -->
-  <g id="architectural-head" filter="url(#blockShadow)">
-    <!-- Base silhouette anchor -->
-    <rect x="230" y="480" width="80" height="150" fill="#27272a" />
-    <rect x="190" y="520" width="60" height="110" fill="#18181b" />
-    <rect x="160" y="560" width="50" height="70" fill="#3f3f46" />
-    <rect x="270" y="450" width="60" height="180" fill="#334155" />
-
-    <!-- Mini Skyscrapers & Highrise Windows on Neck & Base -->
-    <rect x="180" y="530" width="18" height="60" fill="#09090b" />
-    <g fill="#94a3b8" opacity="0.7">
-      <rect x="183" y="535" width="4" height="4" /><rect x="191" y="535" width="4" height="4" />
-      <rect x="183" y="543" width="4" height="4" /><rect x="191" y="543" width="4" height="4" />
-      <rect x="183" y="551" width="4" height="4" /><rect x="191" y="551" width="4" height="4" />
-      <rect x="183" y="559" width="4" height="4" /><rect x="191" y="559" width="4" height="4" />
-    </g>
-
-    <!-- Main Head Block Mass (Upper Cranium / Afro) -->
-    <!-- Stepped voxel afro cubes in dark charcoals and slate -->
-    <rect x="230" y="100" width="45" height="40" fill="#18181b" />
-    <rect x="270" y="90" width="50" height="50" fill="#27272a" />
-    <rect x="315" y="85" width="55" height="55" fill="#1e293b" />
-    <rect x="365" y="85" width="50" height="50" fill="#0f172a" />
-    <rect x="410" y="90" width="60" height="60" fill="#18181b" />
-    <rect x="465" y="105" width="50" height="50" fill="#27272a" />
-    <rect x="510" y="125" width="45" height="50" fill="#1e293b" />
-    <rect x="545" y="150" width="30" height="40" fill="#09090b" />
-
-    <!-- Miniature building antennas & spire details -->
-    <rect x="415" y="65" width="6" height="30" fill="#475569" />
-    <rect x="425" y="70" width="8" height="25" fill="#334155" />
-    <rect x="515" y="95" width="10" height="35" fill="#1e293b" />
-    <line x1="418" y1="50" x2="418" y2="70" stroke="#64748b" stroke-width="2" />
-    <line x1="520" y1="80" x2="520" y2="100" stroke="#64748b" stroke-width="2" />
-
-    <!-- Cranium Mid Layer (Complex Voxel Cubes) -->
-    <rect x="210" y="140" width="50" height="50" fill="#27272a" />
-    <rect x="255" y="135" width="55" height="55" fill="#3f3f46" />
-    <rect x="305" y="135" width="60" height="60" fill="#18181b" />
-    <rect x="360" y="130" width="65" height="65" fill="#27272a" />
-    <rect x="420" y="145" width="60" height="60" fill="#334155" />
-    <rect x="475" y="150" width="55" height="55" fill="#1e293b" />
-    <rect x="525" y="170" width="45" height="55" fill="#0f172a" />
-    <rect x="560" y="185" width="35" height="50" fill="#27272a" />
-
-    <!-- Back of Head Voxel Clusters -->
-    <rect x="175" y="185" width="40" height="40" fill="#18181b" />
-    <rect x="200" y="185" width="55" height="55" fill="#27272a" />
-    <rect x="180" y="225" width="45" height="50" fill="#3f3f46" />
-    <rect x="170" y="270" width="40" height="45" fill="#18181b" />
-    <rect x="195" y="270" width="50" height="50" fill="#27272a" />
-    <rect x="185" y="315" width="40" height="45" fill="#09090b" />
-
-    <!-- Miniature Windows on Upper Cubes -->
-    <g fill="#cbd5e1" opacity="0.6">
-      <rect x="260" y="140" width="6" height="6" /><rect x="270" y="140" width="6" height="6" /><rect x="280" y="140" width="6" height="6" />
-      <rect x="260" y="150" width="6" height="6" /><rect x="270" y="150" width="6" height="6" /><rect x="280" y="150" width="6" height="6" />
-      <rect x="370" y="140" width="5" height="8" /><rect x="380" y="140" width="5" height="8" /><rect x="390" y="140" width="5" height="8" />
-      <rect x="370" y="152" width="5" height="8" /><rect x="380" y="152" width="5" height="8" /><rect x="390" y="152" width="5" height="8" />
-    </g>
-
-    <!-- Face Area of Silhouette (Facing Right) - Architectural Stepped Facade -->
-    <!-- Forehead blocks -->
-    <rect x="430" y="200" width="60" height="50" fill="#94a3b8" />
-    <rect x="485" y="200" width="55" height="45" fill="#cbd5e1" />
-    <rect x="535" y="205" width="50" height="40" fill="#e2e8f0" />
-    <rect x="580" y="215" width="35" height="35" fill="#cbd5e1" />
-
-    <!-- Brow & Nose Projection -->
-    <rect x="500" y="240" width="50" height="50" fill="#e2e8f0" />
-    <rect x="545" y="240" width="45" height="45" fill="#f1f5f9" />
-    <rect x="585" y="245" width="40" height="40" fill="#e2e8f0" />
-    <rect x="620" y="250" width="35" height="35" fill="#cbd5e1" /> <!-- Nose bridge tip -->
-
-    <!-- Glasses Frame Built of Dark Architectural Beams -->
-    <rect x="440" y="260" width="130" height="28" fill="#18181b" />
-    <rect x="560" y="255" width="60" height="36" fill="#09090b" />
-    <line x1="390" y1="270" x2="450" y2="270" stroke="#18181b" stroke-width="8" />
-
-    <!-- Cheek & Jawline Blocks -->
-    <rect x="440" y="285" width="60" height="55" fill="#cbd5e1" />
-    <rect x="495" y="280" width="55" height="55" fill="#e2e8f0" />
-    <rect x="545" y="285" width="50" height="50" fill="#cbd5e1" />
-    <rect x="575" y="315" width="30" height="25" fill="#94a3b8" />
-
-    <!-- Architectural Ear (Curved Concrete Canopy Structure) -->
-    <path d="M 360 280 Q 400 270 410 310 Q 415 360 380 375 Q 350 380 345 340 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="3" />
-    <path d="M 370 295 Q 390 290 395 320 Q 395 345 375 355" fill="none" stroke="#475569" stroke-width="4" />
-
-    <!-- Lips & Chin Blocks -->
-    <rect x="535" y="330" width="45" height="25" fill="#e2e8f0" />
-    <rect x="575" y="335" width="35" height="20" fill="#cbd5e1" /> <!-- Upper Lip -->
-    <rect x="550" y="355" width="30" height="15" fill="#94a3b8" />
-    <rect x="570" y="360" width="35" height="20" fill="#cbd5e1" /> <!-- Lower Lip -->
-
-    <!-- Beard & Jaw (Dark High-Rise Blocks) -->
-    <rect x="450" y="340" width="70" height="60" fill="#27272a" />
-    <rect x="515" y="375" width="60" height="50" fill="#18181b" />
-    <rect x="565" y="380" width="50" height="50" fill="#09090b" /> <!-- Chin block -->
-    <rect x="420" y="390" width="70" height="60" fill="#18181b" />
-    <rect x="480" y="420" width="70" height="60" fill="#27272a" />
-    <rect x="540" y="425" width="50" height="40" fill="#18181b" />
-
-    <!-- Window pattern grids on face blocks -->
-    <g fill="#475569" opacity="0.8">
-      <rect x="445" y="210" width="6" height="8" /><rect x="455" y="210" width="6" height="8" /><rect x="465" y="210" width="6" height="8" />
-      <rect x="445" y="222" width="6" height="8" /><rect x="455" y="222" width="6" height="8" /><rect x="465" y="222" width="6" height="8" />
-      <rect x="500" y="210" width="6" height="8" /><rect x="510" y="210" width="6" height="8" />
-      <rect x="500" y="222" width="6" height="8" /><rect x="510" y="222" width="6" height="8" />
-    </g>
+  <!-- Studio Bokeh Spheres in Background (Out of Focus) -->
+  <g filter="url(#deepBlur)" opacity="0.45">
+    <circle cx="200" cy="280" r="140" fill="#7c3aed" />
+    <circle cx="820" cy="350" r="160" fill="#f59e0b" />
+    <circle cx="750" cy="720" r="120" fill="#6366f1" />
+    <circle cx="150" cy="850" r="180" fill="#4f46e5" />
+    <circle cx="500" cy="180" r="100" fill="#ec4899" />
   </g>
 
-  <!-- ================= FLOATING ARCHITECTURAL GLASS PANELS ================= -->
-  <!-- Back Left Glass Panel (Wireframe house) -->
-  <g filter="url(#subtleShadow)">
-    <polygon points="20,100 150,140 150,330 20,290" fill="url(#glassSheen)" stroke="#94a3b8" stroke-width="1.5" />
-    <!-- Architectural elevation drawing -->
-    <line x1="40" y1="200" x2="130" y2="230" stroke="#475569" stroke-width="1" />
-    <line x1="40" y1="260" x2="130" y2="290" stroke="#475569" stroke-width="1" />
-    <line x1="50" y1="160" x2="90" y2="175" stroke="#475569" stroke-width="1" />
-    <line x1="90" y1="175" x2="125" y2="185" stroke="#475569" stroke-width="1" />
-    <rect x="65" y="215" width="20" height="25" fill="none" stroke="#64748b" stroke-width="1" />
+  <!-- Main Subject Group with Subtle Grain -->
+  <g filter="url(#photographicGrain)">
+
+    <!-- BACK RIM LIGHT ILLUMINATION SILHOUETTE -->
+    <path d="M 230 760 C 230 720, 270 650, 340 600 C 370 540, 360 480, 360 420 C 360 250, 430 180, 500 180 C 570 180, 640 250, 640 420 C 640 480, 630 540, 660 600 C 730 650, 770 720, 770 760 L 880 1333 L 120 1333 Z"
+          fill="none" stroke="url(#rimLightLeft)" stroke-width="26" filter="url(#softGlow)" opacity="0.65" />
+
+    <!-- CLOTHING: CHEST & SHOULDERS (MATTE BLACK LEATHER/BOMBER JACKET) -->
+    <!-- Base Jacket Shape -->
+    <path d="M 240 760 
+             C 270 710, 340 660, 420 650 
+             L 470 760 
+             L 500 770 
+             L 530 760 
+             L 580 650 
+             C 660 660, 730 710, 760 760 
+             L 890 1333 
+             L 110 1333 Z"
+          fill="url(#jacketMain)" />
+
+    <!-- Inner Clean Minimalist Dark Crewneck Tee -->
+    <path d="M 420 650 Q 500 700 580 650 L 570 790 Q 500 810 430 790 Z" fill="#111113" />
+    <path d="M 425 655 Q 500 705 575 655" stroke="#27272a" stroke-width="6" fill="none" />
+
+    <!-- Jacket Collar & Lapels (Sculpted Modern Cut) -->
+    <!-- Left Collar -->
+    <path d="M 370 645 C 410 650, 450 710, 470 760 L 440 780 C 410 730, 370 680, 350 670 Z" fill="#1f1f23" />
+    <path d="M 370 645 C 410 650, 450 710, 470 760" stroke="#3f3f46" stroke-width="2" fill="none" />
+    <!-- Right Collar -->
+    <path d="M 630 645 C 590 650, 550 710, 530 760 L 560 780 C 590 730, 630 680, 650 670 Z" fill="#1a1a1c" />
+    <path d="M 630 645 C 590 650, 550 710, 530 760" stroke="#2e2e33" stroke-width="2" fill="none" />
+
+    <!-- Jacket Center Zipper Track & Metallic Pull Tab -->
+    <line x1="500" y1="770" x2="500" y2="1333" stroke="#09090b" stroke-width="12" />
+    <line x1="500" y1="770" x2="500" y2="1333" stroke="#52525b" stroke-width="3" stroke-dasharray="4,3" />
+    <!-- Zipper Pull Metal -->
+    <rect x="494" y="780" width="12" height="24" rx="3" fill="#a1a1aa" stroke="#3f3f46" stroke-width="1" />
+    <circle cx="500" cy="797" r="2.5" fill="#27272a" />
+
+    <!-- Jacket Texture Folds & Dimensional Shading -->
+    <!-- Left Shoulder Drape -->
+    <path d="M 240 760 C 290 820, 350 920, 360 1060 L 320 1070 C 310 930, 260 840, 210 790 Z" fill="#0b0b0d" opacity="0.7" />
+    <path d="M 330 730 C 370 800, 400 880, 410 990" stroke="#3f3f46" stroke-width="2.5" opacity="0.4" fill="none" />
+    <path d="M 670 730 C 630 800, 600 880, 590 990" stroke="#27272a" stroke-width="2.5" opacity="0.6" fill="none" />
+    <!-- Right Shoulder Warm Ambient Edge Highlight -->
+    <path d="M 760 760 C 720 830, 670 940, 660 1100" stroke="#d97706" stroke-width="2" opacity="0.3" fill="none" />
+
+    <!-- Left Jacket Cyan/Purple Studio Edge Highlight -->
+    <path d="M 120 1333 L 240 760 C 270 710, 330 670, 370 650" stroke="#818cf8" stroke-width="3.5" opacity="0.5" fill="none" />
+    <!-- Overall Jacket Light Sheen Overlay -->
+    <rect x="110" y="640" width="780" height="693" fill="url(#jacketSheen)" style="mix-blend-mode: overlay;" opacity="0.75" />
+
+    <!-- NECK & ADAM'S APPLE WITH REALISTIC MUSCLE SHADING -->
+    <!-- Neck Base -->
+    <path d="M 430 520 L 430 670 Q 500 700 570 670 L 570 520 Z" fill="#c26a3c" />
+    <!-- Neck Shadow under Jaw -->
+    <path d="M 410 515 Q 500 565 590 515 L 580 580 Q 500 620 420 580 Z" fill="#783418" opacity="0.75" />
+    <!-- Sternocleidomastoid Muscle Highlights & Tendons -->
+    <path d="M 450 540 C 455 580, 480 630, 490 660" stroke="#e08852" stroke-width="7" stroke-linecap="round" opacity="0.5" fill="none" />
+    <path d="M 550 540 C 545 580, 520 630, 510 660" stroke="#ba5f34" stroke-width="6" stroke-linecap="round" opacity="0.6" fill="none" />
+    <!-- Adam's Apple Subtle Ridge -->
+    <ellipse cx="500" cy="580" rx="9" ry="14" fill="#dfa887" opacity="0.45" />
+
+    <!-- HEAD & FACIAL STRUCTURE -->
+    <!-- Base Head Silhouette (Strong Jawline & Chin) -->
+    <path d="M 370 360 
+             C 365 240, 420 180, 500 180 
+             C 580 180, 635 240, 630 360 
+             C 630 420, 620 480, 580 520 
+             C 550 550, 530 558, 500 558 
+             C 470 558, 450 550, 420 520 
+             C 380 480, 370 420, 370 360 Z"
+          fill="url(#skinBase)" />
+
+    <!-- Left Jaw & Cheek Subsurface Light / Highlight -->
+    <path d="M 375 360 C 375 440, 410 510, 500 550 C 450 530, 400 480, 385 410 Z" fill="#8f3c1b" opacity="0.6" />
+    <!-- Chin Pad Shading -->
+    <ellipse cx="500" cy="535" rx="28" ry="16" fill="#fdbA74" opacity="0.85" />
+    <ellipse cx="500" cy="532" rx="18" ry="10" fill="#fed7aa" opacity="0.9" />
+    <path d="M 490 542 Q 500 546 510 542" stroke="#b45309" stroke-width="2" fill="none" opacity="0.5" />
+
+    <!-- Forehead Highlight & Volume -->
+    <ellipse cx="495" cy="285" rx="90" ry="55" fill="url(#foreheadHighlight)" />
+    <!-- Left Cheekbone Highlight -->
+    <ellipse cx="430" cy="420" rx="42" ry="28" fill="url(#cheekHighlightLeft)" />
+    <!-- Right Cheekbone Soft Warm Accent -->
+    <ellipse cx="565" cy="425" rx="38" ry="26" fill="#fb923c" opacity="0.35" />
+
+    <!-- EARS (Realistic Anatomy) -->
+    <!-- Left Ear -->
+    <path d="M 372 360 C 350 365, 345 420, 368 450 C 372 455, 376 430, 374 410 Z" fill="#c26a3c" />
+    <path d="M 368 375 C 356 385, 356 415, 368 430" stroke="#874d32" stroke-width="3" fill="none" />
+    <circle cx="365" cy="440" r="1.5" fill="#f8fafc" opacity="0.8" /> <!-- Tiny subtle silver stud earring -->
+    <!-- Right Ear -->
+    <path d="M 628 360 C 650 365, 655 420, 632 450 C 628 455, 624 430, 626 410 Z" fill="#9e4a23" />
+    <path d="M 632 375 C 644 385, 644 415, 632 430" stroke="#682a0e" stroke-width="3" fill="none" />
+
+    <!-- EYEBROWS (Natural Masculine Textured Brows) -->
+    <!-- Left Eyebrow -->
+    <path d="M 410 338 Q 445 326 478 335 Q 450 331 412 342 Z" fill="#1c1412" />
+    <path d="M 414 340 C 430 330, 455 328, 476 336" stroke="#2e201c" stroke-width="4.5" stroke-linecap="round" />
+    <!-- Right Eyebrow -->
+    <path d="M 522 335 Q 555 326 588 338 Q 550 331 520 342 Z" fill="#1c1412" />
+    <path d="M 524 336 C 545 328, 570 330, 586 340" stroke="#2e201c" stroke-width="4.5" stroke-linecap="round" />
+
+    <!-- EYES (Deep Photorealistic Focus with Catchlights) -->
+    <!-- Left Eye Socket Shading -->
+    <ellipse cx="445" cy="365" rx="32" ry="18" fill="#8f3c1b" opacity="0.35" />
+    <!-- Left Eye Sclera (Off-white with natural shadow) -->
+    <path d="M 425 366 Q 446 354 468 366 Q 446 376 425 366 Z" fill="#f8fafc" />
+    <path d="M 425 366 Q 446 357 468 366" fill="#e2e8f0" opacity="0.6" />
+    <!-- Left Iris & Pupil -->
+    <circle cx="447" cy="365" r="9" fill="url(#irisGrad)" />
+    <circle cx="447" cy="365" r="4.2" fill="#000000" />
+    <!-- Crisp Key Catchlight (Reflection of Studio Softbox) -->
+    <rect x="444" y="361" width="3" height="3" rx="0.8" fill="#ffffff" />
+    <circle cx="449" cy="367" r="1" fill="#ffffff" opacity="0.7" />
+    <!-- Upper Eyelid & Lash Line -->
+    <path d="M 423 366 Q 446 353 470 365" stroke="#120c0a" stroke-width="3" fill="none" stroke-linecap="round" />
+    <path d="M 426 367 Q 446 376 468 367" stroke="#682a0e" stroke-width="1.2" fill="none" opacity="0.7" />
+
+    <!-- Right Eye Socket Shading -->
+    <ellipse cx="553" cy="365" rx="32" ry="18" fill="#8f3c1b" opacity="0.35" />
+    <!-- Right Eye Sclera -->
+    <path d="M 532 366 Q 554 354 575 366 Q 554 376 532 366 Z" fill="#f8fafc" />
+    <path d="M 532 366 Q 554 357 575 366" fill="#e2e8f0" opacity="0.6" />
+    <!-- Right Iris & Pupil -->
+    <circle cx="553" cy="365" r="9" fill="url(#irisGrad)" />
+    <circle cx="553" cy="365" r="4.2" fill="#000000" />
+    <!-- Right Eye Catchlight -->
+    <rect x="550" y="361" width="3" height="3" rx="0.8" fill="#ffffff" />
+    <circle cx="555" cy="367" r="1" fill="#ffffff" opacity="0.7" />
+    <!-- Upper Eyelid Line -->
+    <path d="M 530 366 Q 554 353 577 365" stroke="#120c0a" stroke-width="3" fill="none" stroke-linecap="round" />
+    <path d="M 533 367 Q 554 376 574 367" stroke="#682a0e" stroke-width="1.2" fill="none" opacity="0.7" />
+
+    <!-- NOSE (Realistic 3D Bridge, Bulb & Wings) -->
+    <!-- Nose Bridge Shadow on Right -->
+    <path d="M 503 335 L 512 430 L 522 445 L 498 447 Z" fill="#8f3c1b" opacity="0.4" />
+    <!-- Nose Center Highlight -->
+    <path d="M 497 335 L 496 425 Q 498 438 500 440" stroke="#fff7ed" stroke-width="5" stroke-linecap="round" opacity="0.75" />
+    <!-- Nose Tip Bulb -->
+    <ellipse cx="500" cy="442" rx="14" ry="10" fill="#fba879" opacity="0.8" />
+    <ellipse cx="498" cy="440" rx="8" ry="5" fill="#fff7ed" opacity="0.7" />
+    <!-- Nostrils & Wings -->
+    <!-- Left Nostril Wing -->
+    <path d="M 478 442 Q 474 449 486 450" stroke="#9a3412" stroke-width="2.5" fill="none" />
+    <ellipse cx="488" cy="449" rx="5" ry="3" fill="#2d130a" />
+    <!-- Right Nostril Wing -->
+    <path d="M 522 442 Q 526 449 514 450" stroke="#9a3412" stroke-width="2.5" fill="none" />
+    <ellipse cx="512" cy="449" rx="5" ry="3" fill="#2d130a" />
+    <!-- Under Nose Shadow -->
+    <path d="M 485 454 Q 500 458 515 454 Q 500 464 485 454 Z" fill="#682a0e" opacity="0.65" />
+
+    <!-- MOUTH & LIPS (Natural Color, Specular Sheen & Philtrum) -->
+    <!-- Philtrum Dip -->
+    <path d="M 496 455 L 496 475" stroke="#fdbA74" stroke-width="3" opacity="0.6" />
+    <path d="M 504 455 L 504 475" stroke="#c26a3c" stroke-width="2" opacity="0.4" />
+
+    <!-- Upper Lip -->
+    <path d="M 466 484 Q 484 476 500 481 Q 516 476 534 484 Q 500 491 466 484 Z" fill="#a84334" />
+    <!-- Lip Parting Line (Subtle Confident Smile) -->
+    <path d="M 464 485 Q 500 493 536 485" stroke="#4a1510" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Lower Lip with Volume & Specular Catchlight -->
+    <path d="M 468 486 Q 500 493 532 486 Q 500 514 468 486 Z" fill="#c75a48" />
+    <ellipse cx="500" cy="497" rx="18" ry="6" fill="#f87171" opacity="0.6" />
+    <ellipse cx="498" cy="495" rx="10" ry="2.5" fill="#fecaca" opacity="0.75" />
+    <!-- Shadow under Lower Lip -->
+    <ellipse cx="500" cy="512" rx="20" ry="7" fill="#682a0e" opacity="0.5" />
+
+    <!-- SUBTLE 5 O'CLOCK SHADOW / MASCULINE STUBBLE TEXTURE -->
+    <path d="M 430 460 C 430 520, 460 550, 500 552 C 540 550, 570 520, 570 460 C 555 490, 530 525, 500 525 C 470 525, 445 490, 430 460 Z"
+          fill="#3b2019" opacity="0.18" />
+
+    <!-- HAIR: STYLED MODERN TEXTURED QUIFF & FADE -->
+    <!-- Base Hair Mass -->
+    <path d="M 365 370 
+             C 360 280, 390 190, 470 160 
+             C 520 140, 560 145, 600 170 
+             C 630 195, 645 250, 638 330 
+             C 635 370, 620 380, 615 370 
+             C 610 320, 600 270, 570 240 
+             C 530 205, 460 215, 415 255 
+             C 390 280, 378 320, 375 375 Z"
+          fill="url(#hairDark)" />
+
+    <!-- Side Fade Detail (Left Side Temple Fade) -->
+    <path d="M 370 340 C 370 300, 390 270, 410 255 L 415 320 C 395 340, 375 350, 370 340 Z" fill="#271b1e" opacity="0.9" />
+    <!-- Right Side Fade -->
+    <path d="M 630 340 C 630 300, 610 270, 590 255 L 585 320 C 605 340, 625 350, 630 340 Z" fill="#1b1214" opacity="0.9" />
+
+    <!-- Textured Hair Strands & Separation Waves (Top Quiff) -->
+    <!-- Lock 1 (Left Crown) -->
+    <path d="M 430 240 Q 460 170 500 165 Q 470 195 445 250 Z" fill="#382d32" />
+    <!-- Lock 2 (Center Spike/Texture) -->
+    <path d="M 480 220 Q 525 150 560 160 Q 530 190 495 235 Z" fill="#42353b" />
+    <!-- Lock 3 (Right Volume) -->
+    <path d="M 530 225 Q 575 165 605 195 Q 575 220 545 245 Z" fill="#32272c" />
+
+    <!-- Rim Light on Hair Left (Purple/Cyan Edge Light from Studio Strobe) -->
+    <path d="M 368 360 C 362 270, 395 190, 470 160 C 490 152, 515 150, 530 152"
+          stroke="#c084fc" stroke-width="4.5" stroke-linecap="round" fill="none" opacity="0.8" />
+    <!-- Amber Rim Light on Hair Right -->
+    <path d="M 560 155 C 595 170, 628 215, 636 295 C 640 335, 634 370, 630 380"
+          stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.75" />
+
+    <!-- Hair Surface Specular Glow -->
+    <ellipse cx="510" cy="200" rx="90" ry="35" fill="url(#hairHighlight)" style="mix-blend-mode: screen;" opacity="0.6" />
+
+    <!-- Fine Single Hair Wisps (Natural Imperfection) -->
+    <path d="M 450 175 Q 465 145 480 155" stroke="#71717a" stroke-width="1.2" fill="none" opacity="0.7" />
+    <path d="M 505 160 Q 525 138 540 148" stroke="#a1a1aa" stroke-width="1.2" fill="none" opacity="0.8" />
+    <path d="M 555 165 Q 575 145 588 160" stroke="#fcd34d" stroke-width="1.2" fill="none" opacity="0.6" />
+
+    <!-- CINEMATIC LIGHTING VIGNETTE OVERLAY -->
+    <rect width="1000" height="1333" fill="none" stroke="#000000" stroke-width="60" opacity="0.2" />
   </g>
-
-  <!-- Back Right Glass Panel (Wireframe structure) -->
-  <g filter="url(#subtleShadow)">
-    <polygon points="650,140 780,100 780,290 650,330" fill="url(#glassSheen)" stroke="#94a3b8" stroke-width="1.5" />
-    <!-- Architectural plan sketch -->
-    <rect x="670" y="170" width="80" height="80" fill="none" stroke="#64748b" stroke-width="1" />
-    <line x1="670" y1="210" x2="750" y2="210" stroke="#94a3b8" stroke-width="0.8" />
-    <line x1="710" y1="170" x2="710" y2="250" stroke="#94a3b8" stroke-width="0.8" />
-    <circle cx="710" cy="210" r="18" fill="none" stroke="#64748b" stroke-width="1" />
-  </g>
-
-  <!-- Mid Left Glass Panel (Sketch) -->
-  <polygon points="30,560 160,540 160,740 30,760" fill="url(#glassSheen)" stroke="#94a3b8" stroke-width="1.5" />
-  <g stroke="#64748b" stroke-width="1" fill="none">
-    <line x1="50" y1="670" x2="140" y2="650" />
-    <polyline points="60,670 90,620 130,650" />
-    <polyline points="70,620 110,590 140,620" />
-  </g>
-
-  <!-- Mid Right Glass Panel (Floorplan) -->
-  <polygon points="640,540 770,560 770,760 640,740" fill="url(#glassSheen)" stroke="#94a3b8" stroke-width="1.5" />
-
-  <!-- FOREGROUND GLASS PANEL LEFT: "BUILT DIFFERENT" -->
-  <g filter="url(#subtleShadow)">
-    <polygon points="10,300 210,340 210,560 10,520" fill="#ffffff" fill-opacity="0.85" stroke="#cbd5e1" stroke-width="2" />
-    <!-- Glass edge reflection gleam -->
-    <line x1="12" y1="302" x2="208" y2="341" stroke="#ffffff" stroke-width="3" />
-
-    <!-- Typography: BUILT DIFFERENT -->
-    <text x="35" y="415" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="34" fill="#09090b" letter-spacing="-1">BUILT</text>
-    <text x="35" y="465" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="34" fill="#09090b" letter-spacing="-1">DIFFERENT</text>
-    <text x="36" y="500" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="16" fill="#18181b">Learn. Adapt. Build.</text>
-  </g>
-
-  <!-- FOREGROUND GLASS PANEL RIGHT: "IDENTITY IS ARCHITECTURE" -->
-  <g filter="url(#subtleShadow)">
-    <polygon points="590,340 790,300 790,520 590,560" fill="#ffffff" fill-opacity="0.85" stroke="#cbd5e1" stroke-width="2" />
-    <!-- Glass edge reflection gleam -->
-    <line x1="592" y1="341" x2="788" y2="302" stroke="#ffffff" stroke-width="3" />
-
-    <!-- Typography: IDENTITY IS ARCHITECTURE -->
-    <text x="605" y="425" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="28" fill="#09090b" letter-spacing="-0.5">IDENTITY IS</text>
-    <text x="605" y="465" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="28" fill="#09090b" letter-spacing="-0.5">ARCHITECTURE</text>
-  </g>
-
-  <!-- Sub-Panel Right Lower: "Understand People. Adapt Fast. Create Value." -->
-  <g filter="url(#subtleShadow)">
-    <polygon points="620,560 780,540 780,730 620,750" fill="#ffffff" fill-opacity="0.9" stroke="#cbd5e1" stroke-width="1.5" />
-    <text x="635" y="615" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" fill="#09090b">Understand People.</text>
-    <text x="635" y="640" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" fill="#09090b">Adapt Fast.</text>
-    <text x="635" y="665" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="15" fill="#09090b">Create Value.</text>
-  </g>
-
-  <!-- ================= REFLECTION ON GLOSSY FLOOR ================= -->
-  <g opacity="0.28" transform="scale(1, -1) translate(0, -1700)">
-    <!-- Mirrored legs & shoes reflection -->
-    <path d="M 370 820 L 390 820 L 395 720 L 365 720 Z" fill="#0c0a09" />
-    <path d="M 410 820 L 430 820 L 435 720 L 405 720 Z" fill="#0c0a09" />
-    <!-- Mirrored white sneakers -->
-    <ellipse cx="380" cy="830" rx="18" ry="12" fill="#ffffff" />
-    <ellipse cx="420" cy="830" rx="18" ry="12" fill="#ffffff" />
-  </g>
-  <!-- Floor glare overlay -->
-  <rect x="0" y="675" width="800" height="391" fill="url(#reflectionFade)" opacity="0.4" />
-
-  <!-- ================= CENTER SUBJECT: RAY ================= -->
-  <!-- Walking Forward in All-Black Tailored Bomber Outfit, White Sneakers -->
-  <g id="ray-walking-figure">
-    <!-- Drop Shadow on Floor under Shoes -->
-    <ellipse cx="385" cy="855" rx="28" ry="8" fill="#0f172a" opacity="0.35" filter="url(#subtleShadow)" />
-    <ellipse cx="430" cy="815" rx="22" ry="6" fill="#0f172a" opacity="0.25" filter="url(#subtleShadow)" />
-
-    <!-- BACK LEG (Left Leg stepping backward / mid-stride) -->
-    <!-- Trousers Back Leg -->
-    <path d="M 420 590 L 442 595 L 432 725 L 418 785 L 440 788 L 445 798 L 418 805 L 410 740 L 414 590 Z" fill="url(#trousersGrad)" />
-    <!-- Back Foot (White Sneaker) -->
-    <g id="back-shoe">
-      <!-- White shoe body -->
-      <path d="M 416 785 Q 438 780 442 795 Q 445 808 438 815 Q 425 820 415 815 Q 410 805 416 785 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
-      <!-- Sneaker sole -->
-      <path d="M 412 810 L 438 810 Q 442 815 438 818 L 414 818 Q 410 815 412 810 Z" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1" />
-      <!-- Tongue & Laces -->
-      <line x1="422" y1="788" x2="432" y2="792" stroke="#cbd5e1" stroke-width="1.5" />
-      <line x1="420" y1="795" x2="434" y2="798" stroke="#cbd5e1" stroke-width="1.5" />
-    </g>
-
-    <!-- FRONT LEG (Right Leg stepping forward toward viewer) -->
-    <g id="front-leg">
-      <!-- Trousers Front Leg -->
-      <path d="M 368 585 L 405 588 L 412 730 L 404 815 L 372 815 L 362 730 L 368 585 Z" fill="url(#trousersGrad)" />
-      <!-- Crease and fabric fold lines on black trousers -->
-      <path d="M 388 595 L 390 730 L 388 810" stroke="#27272a" stroke-width="2" />
-      <path d="M 370 735 Q 380 745 372 755" stroke="#27272a" stroke-width="1.5" />
-      <path d="M 395 760 Q 405 770 398 780" stroke="#27272a" stroke-width="1.5" />
-      <!-- Cuff at bottom -->
-      <rect x="370" y="810" width="36" height="6" rx="2" fill="#09090b" />
-    </g>
-
-    <!-- FRONT FOOT (White Sneaker Stepping Forward) -->
-    <g id="front-shoe">
-      <!-- Shoe base & leather upper -->
-      <path d="M 370 812 Q 386 805 400 812 Q 408 830 404 855 Q 385 865 370 855 Q 365 835 370 812 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#subtleShadow)" />
-      <!-- Thick clean white midsole / rubber cupsole -->
-      <path d="M 368 845 Q 385 850 406 845 Q 408 858 402 865 Q 386 870 370 865 Q 366 858 368 845 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2" />
-      <!-- Front toe cap contour -->
-      <path d="M 372 840 Q 386 846 400 840" fill="none" stroke="#e2e8f0" stroke-width="2" />
-      <!-- Laces & Eyelet Stay -->
-      <path d="M 380 815 L 392 815 M 378 823 L 394 823 M 377 831 L 395 831" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round" />
-    </g>
-
-    <!-- TORSO & SLEEK BLACK BOMBER JACKET -->
-    <g id="bomber-jacket">
-      <!-- Black T-shirt / Polo inside collar -->
-      <path d="M 386 395 L 418 395 L 424 430 L 380 430 Z" fill="#09090b" />
-      <path d="M 392 405 L 412 405 L 402 430 Z" fill="#18181b" />
-
-      <!-- Main Bomber Jacket Body -->
-      <path d="M 355 410 Q 345 425 342 490 Q 340 550 355 595 L 445 595 Q 460 550 458 490 Q 455 425 445 410 Q 418 415 402 415 Q 382 415 355 410 Z" fill="url(#bomberJacket)" stroke="#09090b" stroke-width="1.5" filter="url(#subtleShadow)" />
-
-      <!-- Ribbed collar -->
-      <path d="M 375 402 Q 402 412 428 402 L 424 414 Q 402 422 380 414 Z" fill="#09090b" />
-
-      <!-- Center Zipper Line -->
-      <line x1="402" y1="416" x2="402" y2="592" stroke="url(#zipperGleam)" stroke-width="2.5" />
-      <circle cx="402" cy="425" r="2.5" fill="#e2e8f0" />
-
-      <!-- Chest Seams & Zipper Pockets -->
-      <line x1="365" y1="485" x2="390" y2="495" stroke="#27272a" stroke-width="2" />
-      <line x1="438" y1="485" x2="414" y2="495" stroke="#27272a" stroke-width="2" />
-
-      <!-- Jacket Hem Ribbing (Elastic Waistband) -->
-      <rect x="355" y="585" width="90" height="12" rx="4" fill="#09090b" stroke="#27272a" stroke-width="1" />
-
-      <!-- LEFT ARM (Viewer Left - natural swing) -->
-      <path d="M 355 410 Q 330 440 325 500 Q 320 560 340 595 L 358 585 Q 342 545 345 490 Q 350 445 365 425 Z" fill="url(#bomberJacket)" />
-      <!-- Ribbed cuff -->
-      <rect x="332" y="585" width="22" height="10" rx="3" fill="#09090b" transform="rotate(15, 343, 590)" />
-      <!-- Hand (Natural relaxed fingers) -->
-      <path d="M 334 598 Q 330 625 338 638 Q 346 642 352 632 Q 355 615 352 596 Z" fill="url(#skinShade)" />
-
-      <!-- RIGHT ARM (Viewer Right - natural swing) -->
-      <path d="M 445 410 Q 470 440 475 500 Q 480 560 460 595 L 442 585 Q 458 545 455 490 Q 450 445 435 425 Z" fill="url(#bomberJacket)" />
-      <!-- Ribbed cuff -->
-      <rect x="446" y="585" width="22" height="10" rx="3" fill="#09090b" transform="rotate(-15, 457, 590)" />
-      <!-- Hand -->
-      <path d="M 466 598 Q 470 625 462 638 Q 454 642 448 632 Q 445 615 448 596 Z" fill="url(#skinShade)" />
-    </g>
-
-    <!-- NECK & CHIN -->
-    <g id="neck-head">
-      <!-- Neck -->
-      <path d="M 390 380 L 414 380 L 416 405 L 388 405 Z" fill="url(#skinShade)" />
-      <path d="M 398 385 L 406 385 L 406 405 L 398 405 Z" fill="#c2632b" opacity="0.3" />
-
-      <!-- Head Base & Jawline -->
-      <path d="M 382 315 Q 380 365 390 385 Q 402 396 414 385 Q 424 365 422 315 Q 402 305 382 315 Z" fill="url(#skinShade)" filter="url(#subtleShadow)" />
-
-      <!-- Trimmed Goatee & Beard -->
-      <!-- Mustache -->
-      <path d="M 394 365 Q 402 363 410 365 Q 402 370 394 365 Z" fill="#1c1917" />
-      <!-- Soul patch & Chin beard -->
-      <ellipse cx="402" cy="374" rx="3" ry="3" fill="#1c1917" />
-      <path d="M 392 376 Q 402 378 412 376 Q 408 392 402 394 Q 396 392 392 376 Z" fill="#1c1917" />
-      <!-- Jawline stubble shadow -->
-      <path d="M 384 345 Q 390 375 398 388 L 406 388 Q 414 375 420 345" fill="none" stroke="#27272a" stroke-width="2.5" stroke-linecap="round" opacity="0.45" />
-
-      <!-- Ears -->
-      <ellipse cx="379" cy="345" rx="5" ry="10" fill="url(#skinShade)" />
-      <ellipse cx="425" cy="345" rx="5" ry="10" fill="url(#skinShade)" />
-
-      <!-- NOSE & BROWS -->
-      <path d="M 400 338 L 402 355 L 405 355" fill="none" stroke="#a14d18" stroke-width="1.8" stroke-linecap="round" />
-
-      <!-- DARK SUNGLASSES (Tinted Specs with Cool Reflection Glints) -->
-      <g id="sunglasses">
-        <!-- Left Lens (Viewer Left) -->
-        <path d="M 384 330 Q 392 328 399 330 Q 400 344 392 346 Q 384 344 384 330 Z" fill="url(#glassesTint)" stroke="#09090b" stroke-width="2" />
-        <path d="M 386 332 L 396 333" stroke="url(#glassStreak)" stroke-width="2" stroke-linecap="round" />
-
-        <!-- Bridge -->
-        <line x1="399" y1="332" x2="405" y2="332" stroke="#09090b" stroke-width="2.5" />
-
-        <!-- Right Lens (Viewer Right) -->
-        <path d="M 405 330 Q 412 328 420 330 Q 420 344 412 346 Q 404 344 405 330 Z" fill="url(#glassesTint)" stroke="#09090b" stroke-width="2" />
-        <path d="M 407 332 L 417 333" stroke="url(#glassStreak)" stroke-width="2" stroke-linecap="round" />
-
-        <!-- Temple Arms to Ears -->
-        <line x1="384" y1="332" x2="379" y2="336" stroke="#09090b" stroke-width="2" />
-        <line x1="420" y1="332" x2="425" y2="336" stroke="#09090b" stroke-width="2" />
-      </g>
-
-      <!-- CURLY AFRO HAIR (Sculpted texture with rich volume) -->
-      <g id="afro-hair">
-        <!-- Base hair mass -->
-        <path d="M 374 330 Q 365 305 372 280 Q 385 250 402 248 Q 420 250 432 280 Q 438 305 430 330 Q 425 300 402 298 Q 380 300 374 330 Z" fill="#18181b" />
-        <!-- Individual organic curls along perimeter -->
-        <circle cx="372" cy="315" r="7" fill="#1c1917" /><circle cx="368" cy="298" r="8" fill="#27272a" />
-        <circle cx="372" cy="280" r="9" fill="#1c1917" /><circle cx="380" cy="265" r="9" fill="#27272a" />
-        <circle cx="392" cy="254" r="10" fill="#18181b" /><circle cx="405" cy="250" r="10" fill="#27272a" />
-        <circle cx="418" cy="255" r="10" fill="#1c1917" /><circle cx="428" cy="268" r="9" fill="#27272a" />
-        <circle cx="434" cy="285" r="8" fill="#18181b" /><circle cx="434" cy="302" r="8" fill="#27272a" />
-        <circle cx="430" cy="318" r="7" fill="#1c1917" />
-        <!-- Top curl highlights -->
-        <circle cx="395" cy="265" r="6" fill="#3f3f46" opacity="0.4" />
-        <circle cx="410" cy="262" r="6" fill="#3f3f46" opacity="0.4" />
-        <circle cx="385" cy="275" r="6" fill="#3f3f46" opacity="0.3" />
-      </g>
-    </g>
-  </g>
-
-  <!-- High-Key Gallery Vignette / Subtle Floor Glow -->
-  <circle cx="400" cy="1066" r="300" fill="#ffffff" opacity="0.15" />
 </svg>

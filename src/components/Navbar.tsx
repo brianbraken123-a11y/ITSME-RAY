@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Menu, X, ArrowUpRight, Compass, FileText, Download } from 'lucide-react';
+import { Sun, Moon, Menu, X, ArrowUpRight, Compass, FileText, Download, Plus, Camera } from 'lucide-react';
 import { profileData } from '../data/profile';
 
 interface NavbarProps {
   activeSection: string;
   onNavigate: (sectionId: string) => void;
   onOpenCv?: () => void;
+  onOpenCreatePost?: () => void;
+  onOpenPhotoManager?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpenCv }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  activeSection,
+  onNavigate,
+  onOpenCv,
+  onOpenCreatePost,
+  onOpenPhotoManager
+}) => {
   const { theme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -87,6 +95,19 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
 
         {/* Action controls */}
         <div className="flex items-center gap-2">
+          {/* Create Post CTA */}
+          {onOpenCreatePost && (
+            <button
+              id="nav-create-post-btn"
+              onClick={onOpenCreatePost}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full bg-gradient-to-r from-purple-700 to-indigo-600 hover:from-purple-800 hover:to-indigo-700 text-white shadow-xs transition-all transform active:scale-95 cursor-pointer"
+              title="Buat Cerita atau Opini Baru"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>+ Buat Post</span>
+            </button>
+          )}
+
           {/* Download CV CTA */}
           {onOpenCv && (
             <button
@@ -157,6 +178,34 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
           </div>
 
           <div className="pt-4 border-t border-stone-200 dark:border-stone-800 flex flex-col gap-2">
+            {onOpenCreatePost && (
+              <button
+                id="mobile-create-post-cta"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenCreatePost();
+                }}
+                className="w-full py-2.5 flex items-center justify-center gap-2 text-xs font-semibold rounded-lg bg-gradient-to-r from-purple-700 to-indigo-600 text-white shadow-xs cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>+ Buat Post / Tambah Cerita Baru</span>
+              </button>
+            )}
+
+            {onOpenPhotoManager && (
+              <button
+                id="mobile-photo-cta"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenPhotoManager();
+                }}
+                className="w-full py-2.5 flex items-center justify-center gap-2 text-xs font-semibold rounded-lg bg-stone-200/80 dark:bg-stone-800 text-stone-800 dark:text-stone-200 cursor-pointer"
+              >
+                <Camera className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                <span>Ganti Foto Profil (Hyper-Realistic)</span>
+              </button>
+            )}
+
             {onOpenCv && (
               <button
                 id="mobile-cv-cta"
