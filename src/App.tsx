@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { motion, Variants } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
 import { ContentProvider, useContent } from './context/ContentContext';
+import { ToastProvider } from './components/Toast';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { StoriesSection } from './components/StoriesSection';
@@ -17,6 +19,15 @@ import { CreatePostModal } from './components/CreatePostModal';
 import { PhotoManagerModal } from './components/PhotoManagerModal';
 import { Story, Opinion } from './types';
 import { Plus, Camera, Feather } from 'lucide-react';
+
+const sectionScrollVariant: Variants = {
+  hidden: { opacity: 0, y: 25 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: 'easeOut' }
+  }
+};
 
 function MainApp() {
   const { stories, opinions } = useContent();
@@ -135,50 +146,105 @@ function MainApp() {
       />
 
       <main>
-        {/* 1. Hero Section with Hyper-Realistic Photo & Post CTAs */}
-        <Hero
-          onExploreStories={() => handleNavigate('stories')}
-          onSeeWork={() => handleNavigate('about')}
-          onOpenCv={() => setIsCvOpen(true)}
-          onOpenCreatePost={() => openCreatePost('story')}
-          onOpenPhotoManager={() => setIsPhotoModalOpen(true)}
-        />
+        {/* 1. Hero Section with Hyper-Realistic Photo & Post CTAs - Animated on mount */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <Hero
+            onExploreStories={() => handleNavigate('stories')}
+            onSeeWork={() => handleNavigate('about')}
+            onOpenCv={() => setIsCvOpen(true)}
+            onOpenCreatePost={() => openCreatePost('story')}
+            onOpenPhotoManager={() => setIsPhotoModalOpen(true)}
+          />
+        </motion.div>
 
         {/* 2. Stories Section (Editorial Archive with Add & Edit) */}
-        <StoriesSection
-          onSelectStory={(story) => setSelectedStory(story)}
-          onOpenCreateStory={() => openCreatePost('story')}
-          onEditStory={handleEditStory}
-        />
+        <motion.div
+          variants={sectionScrollVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+        >
+          <StoriesSection
+            onSelectStory={(story) => setSelectedStory(story)}
+            onOpenCreateStory={() => openCreatePost('story')}
+            onEditStory={handleEditStory}
+          />
+        </motion.div>
 
         {/* 3. Writings & Opinions Section with Add & Edit */}
-        <WritingsSection
-          onSelectOpinion={(op) => setSelectedOpinion(op)}
-          onOpenCreateOpinion={() => openCreatePost('opinion')}
-          onEditOpinion={handleEditOpinion}
-        />
+        <motion.div
+          variants={sectionScrollVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+        >
+          <WritingsSection
+            onSelectOpinion={(op) => setSelectedOpinion(op)}
+            onOpenCreateOpinion={() => openCreatePost('opinion')}
+            onEditOpinion={handleEditOpinion}
+          />
+        </motion.div>
 
         {/* 4. Real Career & Skill Evolution Timeline */}
-        <ExperienceSection />
+        <motion.div
+          variants={sectionScrollVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+        >
+          <ExperienceSection />
+        </motion.div>
 
         {/* 5. Storytelling About Section */}
-        <AboutSection
-          onExploreStories={() => handleNavigate('stories')}
-          onOpenCv={() => setIsCvOpen(true)}
-        />
+        <motion.div
+          variants={sectionScrollVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+        >
+          <AboutSection
+            onExploreStories={() => handleNavigate('stories')}
+            onOpenCv={() => setIsCvOpen(true)}
+          />
+        </motion.div>
 
         {/* 6. Socials Hub */}
-        <SocialsSection />
+        <motion.div
+          variants={sectionScrollVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+        >
+          <SocialsSection />
+        </motion.div>
 
         {/* 7. Contact Section */}
-        <ContactSection />
+        <motion.div
+          variants={sectionScrollVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+        >
+          <ContactSection />
+        </motion.div>
       </main>
 
       {/* Footer */}
-      <Footer
-        onNavigate={handleNavigate}
-        onOpenCv={() => setIsCvOpen(true)}
-      />
+      <motion.div
+        variants={sectionScrollVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-30px' }}
+      >
+        <Footer
+          onNavigate={handleNavigate}
+          onOpenCv={() => setIsCvOpen(true)}
+        />
+      </motion.div>
 
       {/* Floating Action Button for Quick Creator Tools */}
       <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end gap-2.5">
@@ -239,7 +305,9 @@ export default function App() {
   return (
     <ThemeProvider>
       <ContentProvider>
-        <MainApp />
+        <ToastProvider>
+          <MainApp />
+        </ToastProvider>
       </ContentProvider>
     </ThemeProvider>
   );

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { profileData } from '../data/profile';
 import { Mail, MessageCircle, Instagram, Send, Copy, Check, Sparkles, ExternalLink } from 'lucide-react';
+import { useToast } from './Toast';
 
 export const ContactSection: React.FC = () => {
+  const { showToast } = useToast();
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -23,6 +25,7 @@ export const ContactSection: React.FC = () => {
     const url = `https://wa.me/855886772979?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
     setFormSubmitted(true);
+    showToast('Pesan terkirim! 📬', <Check className="w-4 h-4 text-emerald-500" />);
   };
 
   return (
@@ -232,6 +235,10 @@ export const ContactSection: React.FC = () => {
                   href={`mailto:${profileData.email}?subject=${encodeURIComponent(
                     `[${formData.topic}] dari ${formData.name}`
                   )}&body=${encodeURIComponent(formData.message)}`}
+                  onClick={() => {
+                    setFormSubmitted(true);
+                    showToast('Pesan terkirim! 📬', <Check className="w-4 h-4 text-emerald-500" />);
+                  }}
                   className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-xs font-bold font-mono-tag bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-950 hover:bg-amber-600 dark:hover:bg-amber-400 hover:text-white dark:hover:text-stone-950 transition-colors cursor-pointer shrink-0 shadow-sm"
                 >
                   <span>Kirim via Email</span>

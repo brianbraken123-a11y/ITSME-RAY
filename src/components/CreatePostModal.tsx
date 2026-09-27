@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useContent } from '../context/ContentContext';
+import { useToast } from './Toast';
 import { Story, Opinion, StoryCategory, OpinionCategory } from '../types';
 import {
   X,
@@ -74,6 +75,8 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
     setProfilePhoto,
     resetProfilePhoto
   } = useContent();
+
+  const { showToast: triggerGlobalToast } = useToast();
 
   const [activeTab, setActiveTab] = useState<'story' | 'opinion' | 'manage' | 'photo'>(initialTab);
   const [isPreviewMode, setIsPreviewMode] = useState(false);
@@ -235,6 +238,7 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
         featured: storyFeatured
       });
       showToast('Cerita baru berhasil dipublikasikan ke website!');
+      triggerGlobalToast('Cerita berhasil ditambahkan! ✨', <Sparkles className="w-4 h-4 text-amber-500" />);
       if (onPostSuccess) onPostSuccess('story', created.slug);
     }
 
@@ -289,6 +293,7 @@ export const CreatePostModal: React.FC<CreatePostModalProps> = ({
         tags: tags.length ? tags : ['Opini']
       });
       showToast('Opini baru berhasil dipublikasikan ke website!');
+      triggerGlobalToast('Cerita berhasil ditambahkan! ✨', <Sparkles className="w-4 h-4 text-amber-500" />);
       if (onPostSuccess) onPostSuccess('opinion', created.slug);
     }
 

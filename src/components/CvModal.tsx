@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { X, Download, Printer, ExternalLink, FileText, Phone, MapPin, Mail, Linkedin, Sparkles } from 'lucide-react';
 import { profileData } from '../data/profile';
 import { useContent } from '../context/ContentContext';
+import { useToast } from './Toast';
 
 interface CvModalProps {
   isOpen: boolean;
@@ -10,6 +11,14 @@ interface CvModalProps {
 
 export const CvModal: React.FC<CvModalProps> = ({ isOpen, onClose }) => {
   const { profilePhoto } = useContent();
+  const { showToast } = useToast();
+
+  useEffect(() => {
+    if (isOpen) {
+      showToast('CV siap diunduh', <Download className="w-4 h-4 text-purple-500" />);
+    }
+  }, [isOpen, showToast]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();

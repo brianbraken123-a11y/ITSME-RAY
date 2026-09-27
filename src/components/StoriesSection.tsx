@@ -1,7 +1,28 @@
 import React, { useState, useMemo } from 'react';
+import { motion, Variants } from 'framer-motion';
 import { useContent } from '../context/ContentContext';
 import { Story, StoryCategory } from '../types';
 import { Search, Clock, Calendar, ArrowUpRight, Sparkles, Filter, Plus, Edit3 } from 'lucide-react';
+
+const gridContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.08
+    }
+  }
+};
+
+const cardItemVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: 'easeOut' }
+  }
+};
 
 interface StoriesSectionProps {
   onSelectStory: (story: Story) => void;
@@ -201,12 +222,19 @@ export const StoriesSection: React.FC<StoriesSectionProps> = ({
           )}
 
           {/* Standard Editorial Magazine Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <motion.div
+            variants={gridContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-40px' }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             {filteredStories
               .filter((s) => (searchQuery || selectedCategory !== 'All' ? true : s.id !== featuredStory.id))
               .map((story) => (
-                <article
+                <motion.article
                   key={story.id}
+                  variants={cardItemVariants}
                   id={`story-card-${story.id}`}
                   onClick={() => onSelectStory(story)}
                   className="group flex flex-col justify-between p-6 rounded-2xl bg-stone-50/80 dark:bg-stone-900/40 border border-stone-200 dark:border-stone-800 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all duration-300 cursor-pointer"
@@ -264,9 +292,9 @@ export const StoriesSection: React.FC<StoriesSectionProps> = ({
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
-                </article>
+                </motion.article>
               ))}
-          </div>
+          </motion.div>
         </div>
       )}
     </section>
