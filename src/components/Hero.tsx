@@ -18,7 +18,7 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenCreatePost,
   onOpenPhotoManager
 }) => {
-  const { profilePhoto } = useContent();
+  const { profilePhoto, stories, opinions, totalStories, totalOpinions } = useContent();
   const [headlineIndex, setHeadlineIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
 
@@ -75,9 +75,14 @@ export const Hero: React.FC<HeroProps> = ({
           {/* Bio Description - Casual tone */}
           <p
             id="hero-bio"
-            className="text-base sm:text-lg text-stone-700 dark:text-stone-300 leading-relaxed mb-8 font-sans-ui font-normal"
+            className="text-base sm:text-lg text-stone-700 dark:text-stone-300 leading-relaxed font-sans-ui font-normal"
           >
             {profileData.bioShort}
+          </p>
+
+          {/* Value Proposition */}
+          <p className="text-sm text-stone-600 dark:text-stone-400 mt-2 mb-8 font-sans-ui max-w-lg leading-relaxed">
+            Ray bantu brand, startup, dan kreator manusia nyari cerita yang nge-hit pembaca — bukan cuma nge-fill brief.
           </p>
 
           {/* CTAs */}
@@ -229,12 +234,16 @@ export const Hero: React.FC<HeroProps> = ({
       {/* Archive Meta Metrics - with color touches */}
       <div className="mt-14 pt-8 border-t border-stone-200/80 dark:border-stone-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="p-3.5 rounded-2xl bg-purple-500/5 dark:bg-purple-500/10 border border-purple-200/60 dark:border-purple-800/40">
-          <div className="text-2xl font-editorial font-bold text-purple-700 dark:text-purple-300">7+</div>
+          <div className="text-2xl font-editorial font-bold text-purple-700 dark:text-purple-300">
+            {totalStories || stories.length}+
+          </div>
           <div className="text-xs text-stone-600 dark:text-stone-400 font-mono-tag">Cerita & Arsip Sejarah</div>
         </div>
         <div className="p-3.5 rounded-2xl bg-amber-500/5 dark:bg-amber-500/10 border border-amber-200/60 dark:border-amber-800/40">
-          <div className="text-2xl font-editorial font-bold text-amber-700 dark:text-amber-300">9</div>
-          <div className="text-xs text-stone-600 dark:text-stone-400 font-mono-tag">Eksplorasi Disiplin Ilmu</div>
+          <div className="text-2xl font-editorial font-bold text-amber-700 dark:text-amber-300">
+            {totalOpinions || opinions.length}
+          </div>
+          <div className="text-xs text-stone-600 dark:text-stone-400 font-mono-tag">Opini & Catatan Reflektif</div>
         </div>
         <div className="p-3.5 rounded-2xl bg-blue-500/5 dark:bg-blue-500/10 border border-blue-200/60 dark:border-blue-800/40">
           <div className="text-2xl font-editorial font-bold text-blue-700 dark:text-blue-300">6</div>

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useContent } from '../context/ContentContext';
 import { Opinion, OpinionCategory } from '../types';
-import { Feather, Clock, ArrowUpRight, Lightbulb, Tag, Plus, Edit3 } from 'lucide-react';
+import { Feather, Clock, ArrowUpRight, Lightbulb, Tag, Plus, Edit3, Search } from 'lucide-react';
 
 interface WritingsSectionProps {
   onSelectOpinion: (opinion: Opinion) => void;
@@ -25,11 +25,21 @@ export const WritingsSection: React.FC<WritingsSectionProps> = ({
 }) => {
   const { opinions, isCustomOpinion } = useContent();
   const [selectedCategory, setSelectedCategory] = useState<OpinionCategory>('ALL');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filteredOpinions = useMemo(() => {
-    if (selectedCategory === 'ALL') return opinions;
-    return opinions.filter((op) => op.category === selectedCategory);
-  }, [opinions, selectedCategory]);
+    return opinions.filter((op) => {
+      const matchesCategory = selectedCategory === 'ALL' || op.category === selectedCategory;
+      const query = searchQuery.toLowerCase().trim();
+      const matchesSearch =
+        !query ||
+        op.title.toLowerCase().includes(query) ||
+        op.summary.toLowerCase().includes(query) ||
+        (op.tags && op.tags.some((t) => t.toLowerCase().includes(query)));
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [opinions, selectedCategory, searchQuery]);
 
   return (
     <section id="writings" className="py-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-stone-200/80 dark:border-stone-800/80">
@@ -49,45 +59,84 @@ export const WritingsSection: React.FC<WritingsSectionProps> = ({
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
             {onOpenCreateOpinion && (
               <button
                 onClick={onOpenCreateOpinion}
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-xs transition-all transform active:scale-95 cursor-pointer whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white shadow-xs transition-all transform active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
               >
                 <Plus className="w-4 h-4" />
                 <span>+ Tulis Opini Baru</span>
               </button>
             )}
 
-            <div className="text-xs font-mono-tag px-3 py-1.5 rounded-lg bg-stone-200/50 dark:bg-stone-800/50 text-stone-600 dark:text-stone-400 border border-stone-300/40 dark:border-stone-700/40 max-w-xs">
-              <span className="font-bold text-stone-800 dark:text-stone-200">Ray's Lens:</span> Opini personal, bukan kompilasi cerita netral.
+            {/* Search input */}
+            <div className="relative w-full sm:w-64">
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 dark:text-stone-500" />
+              <input
+                id="writings-search-input"
+                type="text"
+                placeholder="Cari opini, topik, tag..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-12 py-2 text-sm rounded-full bg-stone-100 dark:bg-stone-900 border border-stone-300/80 dark:border-stone-700 text-stone-900 dark:text-stone-100 placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-amber-500/50 transition-all font-sans-ui"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 cursor-pointer"
+                >
+                  Clear
+                </button>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Category Pills */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-4 mb-10 scrollbar-none">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            id={`filter-opinion-${cat.toLowerCase().replace(/\s+/g, '-')}`}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-mono-tag whitespace-nowrap transition-all cursor-pointer ${
-              selectedCategory === cat
-                ? 'bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 font-semibold shadow-xs'
-                : 'bg-stone-200/60 dark:bg-stone-800/60 text-stone-600 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-200'
-            }`}
-          >
-            {cat}
-            {cat === 'ALL' ? ` (${opinions.length})` : ''}
-          </button>
-        ))}
+      {/* Category Pills & Subtitle Note */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              id={`filter-opinion-${cat.toLowerCase().replace(/\s+/g, '-')}`}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-mono-tag whitespace-nowrap transition-all cursor-pointer ${
+                selectedCategory === cat
+                  ? 'bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-900 font-semibold shadow-xs'
+                  : 'bg-stone-200/60 dark:bg-stone-800/60 text-stone-600 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-200'
+              }`}
+            >
+              {cat}
+              {cat === 'ALL' ? ` (${opinions.length})` : ''}
+            </button>
+          ))}
+        </div>
+
+        <div className="text-xs font-mono-tag px-3 py-1.5 rounded-lg bg-stone-200/50 dark:bg-stone-800/50 text-stone-600 dark:text-stone-400 border border-stone-300/40 dark:border-stone-700/40 shrink-0 self-start sm:self-auto">
+          <span className="font-bold text-stone-800 dark:text-stone-200">Ray's Lens:</span> Opini personal &amp; reflektif
+        </div>
       </div>
 
-      {/* Writings List */}
-      <div className="space-y-6">
+      {/* Writings List or Empty Search State */}
+      {filteredOpinions.length === 0 ? (
+        <div className="py-14 text-center rounded-2xl bg-stone-100/50 dark:bg-stone-900/20 border border-dashed border-stone-300 dark:border-stone-700">
+          <p className="text-stone-500 dark:text-stone-400 text-sm">
+            Tidak ada opini atau tulisan yang cocok dengan pencarian "{searchQuery}".
+          </p>
+          <button
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedCategory('ALL');
+            }}
+            className="mt-3 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline cursor-pointer"
+          >
+            Reset Pencarian &amp; Filter
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-6">
         {filteredOpinions.map((op) => {
           const isCustom = isCustomOpinion(op.id);
           return (
@@ -163,6 +212,7 @@ export const WritingsSection: React.FC<WritingsSectionProps> = ({
           );
         })}
       </div>
+      )}
     </section>
   );
 };

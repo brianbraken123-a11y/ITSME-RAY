@@ -219,13 +219,25 @@ export const ContactSection: React.FC = () => {
                 Pesan ini bisa langsung kamu kirim ke WhatsApp atau Email Ray.
               </span>
 
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-xs font-bold font-mono-tag bg-emerald-600 hover:bg-emerald-700 text-white transition-colors cursor-pointer shrink-0 shadow-md shadow-emerald-600/20"
-              >
-                <span>Kirim via WhatsApp</span>
-                <Send className="w-3.5 h-3.5" />
-              </button>
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-xs font-bold font-mono-tag bg-emerald-600 hover:bg-emerald-700 text-white transition-colors cursor-pointer shrink-0 shadow-md shadow-emerald-600/20"
+                >
+                  <span>Kirim via WhatsApp</span>
+                  <Send className="w-3.5 h-3.5" />
+                </button>
+
+                <a
+                  href={`mailto:${profileData.email}?subject=${encodeURIComponent(
+                    `[${formData.topic}] dari ${formData.name}`
+                  )}&body=${encodeURIComponent(formData.message)}`}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-xs font-bold font-mono-tag bg-stone-900 text-stone-100 dark:bg-stone-100 dark:text-stone-950 hover:bg-amber-600 dark:hover:bg-amber-400 hover:text-white dark:hover:text-stone-950 transition-colors cursor-pointer shrink-0 shadow-sm"
+                >
+                  <span>Kirim via Email</span>
+                  <Mail className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
           </form>
         )}

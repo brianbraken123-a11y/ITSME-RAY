@@ -6,6 +6,8 @@ import { opinionsData } from '../data/writings';
 interface ContentContextType {
   stories: Story[];
   opinions: Opinion[];
+  totalStories: number;
+  totalOpinions: number;
   profilePhoto: string;
   addStory: (story: Omit<Story, 'id' | 'slug'> & { id?: string; slug?: string }) => Story;
   updateStory: (id: string, updated: Partial<Story>) => void;
@@ -93,6 +95,10 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   // Combined opinions: custom opinions on top, followed by default opinions
   const opinions: Opinion[] = [...customOpinions, ...opinionsData];
+
+  // Computed totals
+  const totalStories = stories.length;
+  const totalOpinions = opinions.length;
 
   const addStory = (storyData: Omit<Story, 'id' | 'slug'> & { id?: string; slug?: string }): Story => {
     const id = storyData.id || `custom-story-${Date.now()}`;
@@ -239,6 +245,8 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
       value={{
         stories,
         opinions,
+        totalStories,
+        totalOpinions,
         profilePhoto,
         addStory,
         updateStory,
